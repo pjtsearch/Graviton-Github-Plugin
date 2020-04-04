@@ -1,12 +1,11 @@
-const UserInfo = require("./actions/UserInfo/index.js")
-const Github = require("./providers/github/index.js")
-const entry = (API) => {
+import { open } from "./actions/UserInfo/index.js"
+import Github from "./providers/github/index.js"
+export const entry = (API) => {
 	API.Notification({
 		title:'Github',
 		content:'Github started'
 	})
 	// console.log(Tab)
 	var provider = new Github({auth:"***REMOVED***"})
-	UserInfo.open({API,provider})
+	open({API,provider})
 }
-module.exports = { entry }

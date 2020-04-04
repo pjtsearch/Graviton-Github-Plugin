@@ -1,4 +1,4 @@
-const { Octokit } = require("@octokit/rest");
+import { Octokit } from "@octokit/rest";
 
 
 class Github {
@@ -31,4 +31,4 @@ class Github {
         return data
     }
 }
-module.exports = Github
+export default Github

@@ -1,4 +1,4 @@
-const panels = require("../../utilities/panels")
+import panels from "../../utilities/panels"
 import createComponent from "../../utilities/createComponent"
 import {
     html,
@@ -11,46 +11,8 @@ import {
     useRef,
     useContext
   } from 'haunted';
-// import dracStyles from "../../styles/drac"
 import "../../components/DracButton"
 import "../../components/DracText"
-// const styledBlockText = puffin=>puffin.style.p`
-// &{
-//     color:white;
-// }
-// `
-// const component = ({puffin,data})=>puffin.element(`
-// <styledBlockText>
-//     <img src="{{avatar}}"/>
-//     Name: {{name}}
-//     Login: {{login}}
-//     Company: {{company}}
-//     Blog: {{blog}}
-//     Location: {{location}}
-//     Email: {{email}}
-//     Hireable: {{hireable}}
-//     Bio: <p>{{bio}}</p>
-//     Public Repositories: {{publicRepos}}
-//     Private Repositories: {{privateRepos}}
-//     Disk Usage: {{diskUsage}}
-//     Plan: {{plan}}
-// </styledBlockText>
-// `,
-// {
-//     events:{
-//         beforeMounted(target){
-//             // target.props.data = data
-//             Object.entries(data).forEach(([key,value])=>{
-//                 target.props[key] = value || "N/A"
-//             })
-//             console.log(target.props)
-//         }
-//     },
-//     components:{
-//         styledBlockText:styledBlockText(puffin)
-//     },
-//     props:[...Object.keys(data)]
-// })
 
 const component = ({puffin,data})=>createComponent(puffin,"user-info",()=>{
     return html`
@@ -71,7 +33,7 @@ const component = ({puffin,data})=>createComponent(puffin,"user-info",()=>{
         </div>
     `;
 })
-const open = async ({API,provider}) =>{
+export const open = async ({API,provider}) =>{
     var data = await provider.getUserInfo()
     var panel = panels.create({API})
     API.Tab({
@@ -82,9 +44,4 @@ const open = async ({API,provider}) =>{
         component:component({puffin:API.puffin,data}),
         panel
     })
-    // var panels = document.querySelectorAll("#mainpanel > *")
-    // console.log(panels.getIds())
-
 }
-
-module.exports = {open}
