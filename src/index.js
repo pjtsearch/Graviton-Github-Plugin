@@ -6,7 +6,6 @@ export const entry = async (API) => {
 		title:'Github',
 		content:'Github started'
 	})
-	// console.log(Tab)
 	const provider = new Github({auth:"***REMOVED***"})
 	var options = {panel:null,provider}
 	commandPrompt.register({API,options})
