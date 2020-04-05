@@ -33,8 +33,9 @@ const component = ({puffin,data})=>createComponent("user-info",()=>{
         </div>
     `;
 },puffin)
-export const open = async ({API,provider,options}) =>{
-    var data = await provider.getUserInfo()
+
+export const open = async ({API,options}) =>{
+    var data = await options.provider.getUserInfo()
     var panel = options.panel || panels.create({API})
     if (!options.panel) options.panel = panel
     API.Tab({

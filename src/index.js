@@ -7,6 +7,13 @@ export const entry = async (API) => {
 	})
 	// console.log(Tab)
 	var provider = new Github({auth:"***REMOVED***"})
-	var options = {panel:null}
-	await UserInfo.open({API,provider,options})
+	var options = {panel:null,provider}
+	await UserInfo.open({API,options})
+	// console.log(API.RunningConfig)
+	// API.RunningConfig.data.globalCommandPrompt.push({label:"Test"})
+	// API.RunningConfig.on('command.openCommandPrompt',()=>{
+	// 	document.getElementById("global").onclick = e=>{
+	// 		console.log(e.target.innerText)
+	// 	}
+	// })
 }
