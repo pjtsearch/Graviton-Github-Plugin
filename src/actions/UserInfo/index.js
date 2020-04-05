@@ -1,4 +1,4 @@
-import panels from "../../utilities/panels"
+import * as panels from "../../utilities/panels"
 import createComponent from "../../utilities/createComponent"
 import {
     html,
@@ -14,7 +14,7 @@ import {
 import "../../components/DracButton"
 import "../../components/DracText"
 
-const component = ({puffin,data})=>createComponent(puffin,"user-info",()=>{
+const component = ({puffin,data})=>createComponent("user-info",()=>{
     return html`
         <div>
             <img src="${data.avatar}"/>
@@ -32,16 +32,16 @@ const component = ({puffin,data})=>createComponent(puffin,"user-info",()=>{
             <drac-txt>Plan: ${data.plan}</drac-txt>
         </div>
     `;
-})
-export const open = async ({API,provider}) =>{
+},puffin)
+export const open = async ({API,provider,options}) =>{
     var data = await provider.getUserInfo()
-    var panel = panels.create({API})
+    var panel = options.panel || panels.create({API})
+    if (!options.panel) options.panel = panel
     API.Tab({
         title:"User Info",
         isEditor:false,
-        directory:"",
-        parentFolder:"",
         component:component({puffin:API.puffin,data}),
-        panel
+        panel,
+        id:Math.random()
     })
 }
