@@ -5,6 +5,13 @@ export const create = ({API})=> {
     API.RunningConfig.emit('command.newPanel')
     var newIds = getIds()
     var id = newIds.find((newId)=>!oldIds.some((oldId)=> oldId === newId));
-    return document.getElementById(id)
+    var panelElement = document.getElementById(id)
+    API.RunningConfig.on('aTabHasBeenClosed',function({tabElement}){
+        console.log(panelElement.querySelector(`.tabsbar`).children)
+        if (tabElement.getAttribute("classselector").includes(id) && panelElement.querySelector(`.tabsbar`).children.length === 0){
+            panelElement.remove()
+        }
+	})
+    return panelElement
 }
 export const remove = id => document.getElementById(id).remove()

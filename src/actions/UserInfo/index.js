@@ -36,13 +36,16 @@ const component = ({puffin,data})=>createComponent("user-info",()=>{
 
 export const open = async ({API,options}) =>{
     var data = await options.provider.getUserInfo()
-    var panel = options.panel || panels.create({API})
-    if (!options.panel) options.panel = panel
+    var panel = options.panel
+    if (!options.panel || !document.body.contains(options.panel)) {
+        panel = panels.create({API})
+        options.panel = panel
+    }
     API.Tab({
         title:"User Info",
         isEditor:false,
         component:component({puffin:API.puffin,data}),
         panel,
-        id:Math.random()
+        id:`user-info:${panel.id}`
     })
 }
