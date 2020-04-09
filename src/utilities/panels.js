@@ -8,9 +8,12 @@ export const create = ({API})=> {
     var panelElement = document.getElementById(id)
     API.RunningConfig.on('aTabHasBeenClosed',function({tabElement}){
         if (tabElement.getAttribute("classselector").includes(id) && panelElement.querySelector(`.tabsbar`).children.length === 0){
-            panelElement.remove()
+            remove({id,RunningConfig:API.RunningConfig})
         }
 	})
     return panelElement
 }
-export const remove = id => document.getElementById(id).remove()
+export const remove = ({id,RunningConfig}) => {
+    document.getElementById(id).remove()
+    RunningConfig.data.focusedPanel = document.querySelector("#mainpanel").children[0]
+}

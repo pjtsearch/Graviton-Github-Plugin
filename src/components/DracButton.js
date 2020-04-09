@@ -40,7 +40,7 @@ import {
         background:var(--puffinDisabledColor,var(--disabledColor));
     }
   `
-  customElements.define("drac-btn", component(()=>{
+  customElements.define("d-btn", component(()=>{
       return html`
         <style>${styles()}</style>
         <button><slot></slot></button>

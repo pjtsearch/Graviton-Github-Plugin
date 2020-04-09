@@ -1,4 +1,4 @@
-import * as UserInfo from "./actions/UserInfo/index.js"
+// import * as UserInfo from "./actions/UserInfo/index.js"
 import Github from "./providers/github/index.js"
 import * as commandPrompt from "./triggers/commandPrompt"
 export const entry = async (API) => {
@@ -6,7 +6,6 @@ export const entry = async (API) => {
 		title:'Github',
 		content:'Github started'
 	})
-	const provider = new Github({auth:"***REMOVED***"})
-	var options = {panel:null,provider}
+	var options = {panel:null}
 	commandPrompt.register({API,options})
 }

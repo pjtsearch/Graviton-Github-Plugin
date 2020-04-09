@@ -1,5 +1,6 @@
 import * as panels from "../../utilities/panels"
 import createComponent from "../../utilities/createComponent"
+import getProvider from "../../utilities/getProvider"
 import {
     html,
     useState,
@@ -18,24 +19,24 @@ const component = ({puffin,data})=>createComponent("user-info",()=>{
     return html`
         <div>
             <img src="${data.avatar}"/>
-            <drac-txt>Name: ${data.name}</drac-txt>
-            <drac-txt>Login: ${data.login}</drac-txt>
-            <drac-txt>Company: ${data.company}</drac-txt>
-            <drac-txt>Blog: ${data.blog}</drac-txt>
-            <drac-txt>Location: ${data.location}</drac-txt>
-            <drac-txt>Email: ${data.email}</drac-txt>
-            <drac-txt>Hireable: ${data.hireable}</drac-txt>
-            <drac-txt>Bio: ${data.bio}</drac-txt>
-            <drac-txt>Public Repositories: ${data.publicRepos}</drac-txt>
-            <drac-txt>Private Repositories: ${data.privateRepos}</drac-txt>
-            <drac-txt>Disk Usage: ${data.diskUsage}</drac-txt>
-            <drac-txt>Plan: ${data.plan}</drac-txt>
+            <d-txt>Name: ${data.name}</d-txt>
+            <d-txt>Login: ${data.login}</d-txt>
+            <d-txt>Company: ${data.company}</d-txt>
+            <d-txt>Blog: ${data.blog}</d-txt>
+            <d-txt>Location: ${data.location}</d-txt>
+            <d-txt>Email: ${data.email}</d-txt>
+            <d-txt>Hireable: ${data.hireable}</d-txt>
+            <d-txt>Bio: ${data.bio}</d-txt>
+            <d-txt>Public Repositories: ${data.publicRepos}</d-txt>
+            <d-txt>Private Repositories: ${data.privateRepos}</d-txt>
+            <d-txt>Disk Usage: ${data.diskUsage}</d-txt>
+            <d-txt>Plan: ${data.plan}</d-txt>
         </div>
     `;
 },puffin)
 
 export const open = async ({API,options}) =>{
-    var data = await options.provider.getUserInfo()
+    var data = await getProvider({API}).getUserInfo()
     var panel = options.panel
     if (!options.panel || !document.body.contains(options.panel)) {
         panel = panels.create({API})

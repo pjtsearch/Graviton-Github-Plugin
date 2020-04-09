@@ -17,7 +17,7 @@ p,span{
     font-weight:normal;
 }
   `
-  customElements.define("drac-txt", component(({inline=false})=>{
+  customElements.define("d-txt", component(({inline=false})=>{
       return html`
         <style>${styles()}</style>
         ${inline ?
