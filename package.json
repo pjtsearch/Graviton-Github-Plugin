@@ -4,14 +4,15 @@
   "description": "Github plugin for Graviton",
   "main": "dist/index.js",
   "author": "PJTSearch",
-  "license": "GPL-v3",
+  "license": "GPL-3.0-only",
   "private": false,
   "dependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@octokit/rest": "^17.1.4",
-    "haunted": "^4.7.0"
+    "haunted": "^4.7.0",
+    "parcel": "^2.0.0-alpha.3.2"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",
