@@ -23,6 +23,6 @@
   },
   "scripts": {
     "build": "rollup --config ./rollup.config.js",
-    "watch": "parcel watch src/index.js"
+    "watch": "rollup --config ./rollup.config.js --watch"
   }
 }
