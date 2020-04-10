@@ -1,7 +1,9 @@
 import Github from "../providers/github/index.js"
 import * as Config from "../actions/Config"
+import * as fs from "fs"
+import * as git from "isomorphic-git"
 
-export default ({API})=>{
+export default async ({API})=>{
     if (!API.StaticConfig.data.github) API.StaticConfig.data.github = {}
     if (!API.StaticConfig.data.github.provider) API.StaticConfig.data.github.provider = "github"
     const providerName = API.StaticConfig.data.github.provider
@@ -16,6 +18,9 @@ export default ({API})=>{
         // return
     }
     const auth = API.StaticConfig.data.github.auth
+    const dir = API.RunningConfig.data.workspaceConfig.folders[0].path
+    // console.log(dir)
+    console.log(await git.listRemotes({fs,dir}))
     
     if (providerName === "github"){
         return new Github({auth})

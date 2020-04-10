@@ -36,7 +36,8 @@ const component = ({puffin,data})=>createComponent("user-info",()=>{
 },puffin)
 
 export const open = async ({API,options}) =>{
-    var data = await getProvider({API}).getUserInfo()
+    var provider = await getProvider({API})
+    var data = await provider.getUserInfo()
     var panel = options.panel
     if (!options.panel || !document.body.contains(options.panel)) {
         panel = panels.create({API})

@@ -27,7 +27,7 @@ const component = ({puffin,API,data})=>createComponent("github-config",()=>{
         <div>
             <d-title>Config</d-title>
             <label>Auth:</label>
-            <d-input @input=${e=>setForm({...form,auth:e.path[0].value})} value=${data.auth}></d-input>
+            <d-input @input=${e=>setForm({...form,auth:e.path[0].value})} .value=${data.auth}></d-input>
             <d-btn @click=${()=>submit(form)}>Submit</d-btn>
         </div>
     `;
