@@ -2,11 +2,11 @@ import { Octokit } from "@octokit/rest";
 
 
 class Github {
-    octokit;
-    constructor({auth}){
+    octokit:Octokit=new Octokit;
+    constructor({auth}:{auth:string}){
         this.create({auth})
     }
-    create({auth}){
+    create({auth}:{auth:string}){
         this.octokit = new Octokit({
             auth
         });

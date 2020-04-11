@@ -1,4 +1,4 @@
-import Github from "../providers/github/index.js"
+import Github from "../providers/github/index.ts"
 import * as Config from "../actions/Config"
 import * as fs from "fs"
 import * as git from "isomorphic-git"

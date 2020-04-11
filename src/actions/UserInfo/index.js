@@ -15,7 +15,12 @@ import {
 import "../../components/DracButton"
 import "../../components/DracText"
 
-const component = ({puffin,data})=>createComponent("user-info",()=>{
+const component = ({puffin,provider})=>createComponent("user-info",()=>{
+    let [data,$data] = useState({})
+    useEffect(async ()=>{
+        $data(await provider.getUserInfo())
+    })
+    
     return html`
         <div>
             <img src="${data.avatar}"/>
@@ -37,7 +42,6 @@ const component = ({puffin,data})=>createComponent("user-info",()=>{
 
 export const open = async ({API,options}) =>{
     var provider = await getProvider({API})
-    var data = await provider.getUserInfo()
     var panel = options.panel
     if (!options.panel || !document.body.contains(options.panel)) {
         panel = panels.create({API})
@@ -46,7 +50,7 @@ export const open = async ({API,options}) =>{
     API.Tab({
         title:"User Info",
         isEditor:false,
-        component:component({puffin:API.puffin,data}),
+        component:component({puffin:API.puffin,provider}),
         panel,
         id:`user-info:${panel.id}`
     })
