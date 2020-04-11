@@ -1,7 +1,6 @@
 import * as panels from "../../utilities/panels"
 import createComponent from "../../utilities/createComponent"
 import getProvider from "../../utilities/getProvider"
-import * as Issue from "../Issue"
 import {
     html,
     useState,
@@ -18,32 +17,20 @@ import "../../components/DracText"
 import "../../components/DracTitle"
 import "../../components/DracCard"
 
-const component = ({API,options,puffin,provider})=>createComponent("github-issues",()=>{
-    let [issues,$issues] = useState([])
+const component = ({puffin,provider,issueNumber})=>createComponent(`github-issue-${issueNumber}`,()=>{
+    let [issue,$issue] = useState({})
     useEffect(async ()=>{
-        $issues(await provider.getIssues())
+        $issue(await provider.getIssue({issueNumber}))
     }, [])
 
     return html`
         <div>
-            <d-title .level=${2}>Issues</d-title>
-            ${issues.length
-            ?
-            issues.map(issue=>html`
-            <d-card .width=${"calc(100% - 10px)"} @click=${()=>Issue.open({API,options,issueNumber:issue.number})}>
-              <d-txt>${issue.title}</d-txt>
-            </d-card>
-            `)
-            :
-            html`
-            <d-txt>Loading...</d-txt>
-            `
-            }
+            <d-txt>${JSON.stringify(issue,null,2)}</d-txt>
         </div>
     `;
 },puffin)
 
-export const open = async ({API,options}) =>{
+export const open = async ({API,issueNumber,options}) =>{
     var provider = await getProvider({API})
     var panel = options.panel
     if (!options.panel || !document.body.contains(options.panel)) {
@@ -51,10 +38,10 @@ export const open = async ({API,options}) =>{
         options.panel = panel
     }
     API.Tab({
-        title:"Issues",
+        title:`Issue #${issueNumber}`,
         isEditor:false,
-        component:component({API,options,puffin:API.puffin,provider}),
+        component:component({puffin:API.puffin,provider,issueNumber}),
         panel,
-        id:`github-issues:${panel.id}`
+        id:`github-issue-${issueNumber}:${panel.id}`
     })
 }

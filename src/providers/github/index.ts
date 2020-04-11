@@ -38,25 +38,52 @@ class Github {
             owner:this.repo.owner,
             repo:this.repo.repo,
         });
-        const data = raw.map(issue=>({
-            title:issue.title,
-            id:issue.id,
-            altId:issue.node_id,
-            number:issue.number,
-            creator:this.parseUser(issue.user),
-            labels:issue.labels.map(this.parseLabel),
-            state:issue.state,
-            locked:issue.locked,
-            assignees:issue.assignees.map(this.parseUser),
-            //  FIXME: parse milestone if neccessary
-            milestone:issue.milestone,
-            commentsAmount:issue.comments,
-            createdDate:new Date(issue.created_at),
-            updatedDate:new Date(issue.updated_at),
-            closedDate:issue.closed_at  ? new Date(issue.closed_at||"") : null,
-            body:issue.body
-        }))
+        const data = raw.map(this.parseIssue.bind(this))
         return data
+    }
+    async getIssue({issueNumber}){
+      const {data:raw} = await this.octokit.issues.get({
+          owner:this.repo.owner,
+          repo:this.repo.repo,
+          issue_number:issueNumber
+      });
+      return this.parseIssue(raw)
+    }
+    private parseIssue(issue:{
+        title:string,
+        id:number,
+        node_id:string,
+        number:number,
+        user:any,
+        labels:any,
+        state:string,
+        locked:boolean,
+        assignees:any,
+        milestone:any,
+        comments:number,
+        created_at:string,
+        updated_at:string,
+        closed_at:string|null,
+        body:string
+    }){
+      return {
+          title:issue.title,
+          id:issue.id,
+          altId:issue.node_id,
+          number:issue.number,
+          creator:this.parseUser(issue.user),
+          labels:issue.labels.map(this.parseLabel),
+          state:issue.state,
+          locked:issue.locked,
+          assignees:issue.assignees.map(this.parseUser),
+          //  FIXME: parse milestone if neccessary
+          milestone:issue.milestone,
+          commentsAmount:issue.comments,
+          createdDate:new Date(issue.created_at),
+          updatedDate:new Date(issue.updated_at),
+          closedDate:issue.closed_at  ? new Date(issue.closed_at||"") : null,
+          body:issue.body
+      }
     }
     private parseUser(user:{login:string,id:number,node_id:string,avatar_url:string,html_url:string}){
         return {
