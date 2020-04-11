@@ -15,20 +15,23 @@ import {
 import "../../components/DracButton"
 import "../../components/DracText"
 import "../../components/DracTitle"
+import "../../components/DracCard"
 
 const component = ({puffin,provider})=>createComponent("github-issues",()=>{
     let [issues,$issues] = useState([])
     useEffect(async ()=>{
         $issues(await provider.getIssues())
     }, [])
-    
+
     return html`
         <div>
             <d-title .level=${2}>Issues</d-title>
             ${issues.length
-            ? 
+            ?
             issues.map(issue=>html`
-            <d-txt>${issue.title}</d-txt>
+            <d-card .width=${"calc(100% - 10px)"}>
+              <d-txt>${issue.title}</d-txt>
+            </d-card>
             `)
             :
             html`
