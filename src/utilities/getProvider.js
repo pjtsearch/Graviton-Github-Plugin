@@ -1,7 +1,8 @@
 import Github from "../providers/github/index.ts"
 import * as Config from "../actions/Config"
-import * as fs from "fs"
+import parseGHUrl from "parse-github-url"
 import * as git from "isomorphic-git"
+import * as fs from "fs"
 
 export default async ({API})=>{
     if (!API.StaticConfig.data.github) API.StaticConfig.data.github = {}
@@ -19,10 +20,10 @@ export default async ({API})=>{
     }
     const auth = API.StaticConfig.data.github.auth
     const dir = API.RunningConfig.data.workspaceConfig.folders[0].path
-    // console.log(dir)
-    console.log(await git.listRemotes({fs,dir}))
+    const repo = parseGHUrl((await git.listRemotes({fs,dir}))[0].url)
+    repo.repo = repo.name
     
     if (providerName === "github"){
-        return new Github({auth})
+        return new Github({auth,dir,repo})
     }
 }

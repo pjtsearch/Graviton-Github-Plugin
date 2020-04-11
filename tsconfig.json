@@ -6,7 +6,8 @@
       "declaration": false,
       "outDir": "./dist",
       "strict": true,
-      "downlevelIteration":true
+      "downlevelIteration":true ,
+      "esModuleInterop":true
     },
     "include": ["src"],
     "exclude": ["node_modules", "**/__tests__/*"]
