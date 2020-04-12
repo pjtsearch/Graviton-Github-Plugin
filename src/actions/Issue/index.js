@@ -28,12 +28,44 @@ const styles = vars => `
   width:100%;
 }
 #input-box{
-  position:absolute;
-  width:100%;
-  bottom:0;
-  left:0;
+  width:calc(100% - 7px);
   display: grid;
   grid-template-columns: 1fr auto;
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  margin:auto;
+  border-radius:10px;
+  overflow:hidden;
+  background:var(--controlButtonsHoverBackground);
+}
+#input-box > d-input {
+  --inputBackground: var(--controlButtonsHoverBackground);
+}
+#issue-wrapper{
+  overflow:auto;
+  height:100%;
+  padding-bottom:45px;
+  box-sizing: border-box;
+}
+:host ::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    transition: all 0.1s ease 0s;
+}
+:host ::-webkit-scrollbar-corner {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0px !important;
+    width: 0px !important;
+    display: none !important;
+}
+:host ::-webkit-scrollbar-thumb {
+    border-radius: 0.2rem;
+    transition: all 0.1s ease 0s;
+}
+:host ::-webkit-scrollbar-track {
 }
 `
 
@@ -62,33 +94,35 @@ const component = ({puffin,provider,issueNumber})=>createComponent(`github-issue
         <div id="issue">
             <!-- <d-txt><pre>${JSON.stringify(comments,null,2)}</pre></d-txt>
             <d-txt><pre>${JSON.stringify(issue,null,2)}</pre></d-txt> -->
-            ${issue
-              ?
-              html`
-              <d-title .level=${2}>${issue.title}</d-title>
-              <d-card .width=${"calc(100% - 10px)"}>
-                <img height="20" src=${issue.creator.avatar}/>
-                <d-txt .inline=${true}>${issue.creator.login}</d-txt>
-                <br>
-                <d-txt>${issue.body}</d-txt>
-              </d-card>
-              `
-              :
-              html`Loading...`
-            }
-            ${comments
-              ?
-              comments.map(comment=>html`
-              <d-card .width=${"calc(100% - 10px)"}>
-                <img height="20" src=${comment.creator.avatar}/>
-                <d-txt .inline=${true}>${comment.creator.login}</d-txt>
-                <br>
-                <d-txt>${comment.body}</d-txt>
-              </d-card>
-              `)
-              :
-              html`Loading...`
-            }
+            <div id="issue-wrapper">
+              ${issue
+                ?
+                html`
+                <d-title .level=${2}>${issue.title}</d-title>
+                <d-card .width=${"calc(100% - 10px)"}>
+                  <img height="20" src=${issue.creator.avatar}/>
+                  <d-txt .inline=${true}>${issue.creator.login}</d-txt>
+                  <br>
+                  <d-txt>${issue.body}</d-txt>
+                </d-card>
+                `
+                :
+                html`Loading...`
+              }
+              ${comments
+                ?
+                comments.map(comment=>html`
+                <d-card .width=${"calc(100% - 10px)"}>
+                  <img height="20" src=${comment.creator.avatar}/>
+                  <d-txt .inline=${true}>${comment.creator.login}</d-txt>
+                  <br>
+                  <d-txt>${comment.body}</d-txt>
+                </d-card>
+                `)
+                :
+                html`Loading...`
+              }
+            </div>
             <div id="input-box">
               <d-input @input=${e=>$comment(e.path[0].value)}></d-input>
               <d-btn @click=${()=>createComment(comment)}>Send</d-btn>
