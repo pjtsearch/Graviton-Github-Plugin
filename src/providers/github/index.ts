@@ -49,6 +49,23 @@ class Github {
       });
       return this.parseIssue(raw)
     }
+    async getIssueComments({issueNumber}){
+      const {data:raw} = await this.octokit.issues.listComments({
+          owner:this.repo.owner,
+          repo:this.repo.repo,
+          issue_number:issueNumber
+      });
+      return raw.map(this.parseComment.bind(this))
+    }
+    async createComment({issueNumber,body}){
+      const {data:raw} = await this.octokit.issues.createComment({
+          owner:this.repo.owner,
+          repo:this.repo.repo,
+          issue_number:issueNumber,
+          body
+      });
+      return raw
+    }
     private parseIssue(issue:{
         title:string,
         id:number,
@@ -102,6 +119,17 @@ class Github {
             color:label.color,
             description:label.description
         }
+    }
+    private parseComment(comment:{html_url:string,id:number,node_id:number,user:any,created_at:string,updated_at:string,body:string}){
+      return {
+        url:comment.html_url,
+        id:comment.id,
+        altId:comment.node_id,
+        creator:this.parseUser(comment.user),
+        createdDate:new Date(comment.created_at),
+        updatedDate:new Date(comment.updated_at),
+        body:comment.body
+      }
     }
 }
 export default Github
