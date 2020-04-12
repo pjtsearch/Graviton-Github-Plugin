@@ -19,15 +19,21 @@ import "../../components/DracCard"
 import "../../components/DracInput"
 
 const styles = vars => `
+:host{
+  width:100%;
+}
 #issue{
   position:relative;
-  height:100%;
+  height:calc(100% - 3px);
+  width:100%;
 }
 #input-box{
   position:absolute;
   width:100%;
   bottom:0;
   left:0;
+  display: grid;
+  grid-template-columns: 1fr auto;
 }
 `
 
@@ -36,13 +42,19 @@ const component = ({puffin,provider,issueNumber})=>createComponent(`github-issue
     let [issue,$issue] = useState(null)
     let [comment,$comment] = useState(null)
 
+    const update = async ()=> {
+      $issue(await provider.getIssue({issueNumber}))
+      $comments(await provider.getIssueComments({issueNumber}))
+    }
+
+
     useEffect(async ()=>{
-        $issue(await provider.getIssue({issueNumber}))
-        $comments(await provider.getIssueComments({issueNumber}))
+        await update()
     }, [])
 
     const createComment = async body=>{
       console.log(await provider.createComment({issueNumber,body}))
+      await update()
     }
 
     return html`

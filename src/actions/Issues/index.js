@@ -18,6 +18,12 @@ import "../../components/DracText"
 import "../../components/DracTitle"
 import "../../components/DracCard"
 
+const styles = vars => `
+:host{
+  width:100%;
+}
+`
+
 const component = ({API,options,puffin,provider})=>createComponent("github-issues",()=>{
     let [issues,$issues] = useState([])
     useEffect(async ()=>{
@@ -25,6 +31,7 @@ const component = ({API,options,puffin,provider})=>createComponent("github-issue
     }, [])
 
     return html`
+        <style>${styles()}</style>
         <div>
             <d-title .level=${2}>Issues</d-title>
             ${issues.length

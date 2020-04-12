@@ -12,6 +12,8 @@ input{
   padding:6px;
   border:0px;
   color:var(--inputText);
+  width: 100%;
+  height: 100%;
 }
   `
   customElements.define("d-input", component(function({
@@ -19,7 +21,7 @@ input{
   }){
     return html`
       <style>${styles()}</style>
-      <input 
+      <input
       value=${value}
       />
     `
