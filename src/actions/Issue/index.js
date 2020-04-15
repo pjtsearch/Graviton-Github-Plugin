@@ -124,7 +124,7 @@ const component = ({puffin,provider,issueNumber})=>createComponent(`github-issue
               }
             </div>
             <div id="input-box">
-              <d-input @input=${e=>$comment(e.path[0].value)}></d-input>
+              <d-input @input=${e=>$comment(e.path[0].value)} .height=${"100%"}></d-input>
               <d-btn @click=${()=>createComment(comment)}>Send</d-btn>
             </div>
         </div>
