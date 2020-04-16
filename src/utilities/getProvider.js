@@ -5,7 +5,7 @@ import * as git from "isomorphic-git"
 import * as fs from "fs"
 
 export default async ({API})=>{
-    if (!API.StaticConfig.data.github) API.StaticConfig.data.github = {}
+    if (!API.StaticConfig.data.github) {API.StaticConfig.data.github = {}; console.log("no conf");}
     if (!API.StaticConfig.data.github.provider) API.StaticConfig.data.github.provider = "github"
     const providerName = API.StaticConfig.data.github.provider
     // console.log(API.StaticConfig.data.github.auth)
@@ -22,7 +22,7 @@ export default async ({API})=>{
     const dir = API.RunningConfig.data.workspaceConfig.folders[0].path
     const repo = parseGHUrl((await git.listRemotes({fs,dir}))[0].url)
     repo.repo = repo.name
-    
+
     if (providerName === "github"){
         return new Github({auth,dir,repo})
     }
