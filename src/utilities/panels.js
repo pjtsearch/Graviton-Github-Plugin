@@ -21,7 +21,7 @@ export const create = ({API})=> {
       console.log(id)
       remove({id,RunningConfig:API.RunningConfig,events})
     }))
-    console.log(API.RunningConfig)
+    // console.log(API.RunningConfig)
     return panelElement
 }
 export const remove = ({id,RunningConfig,events}) => {
