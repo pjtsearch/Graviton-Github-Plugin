@@ -24,7 +24,7 @@ const styles = vars => `
 }
 `
 
-const component = ({API,options,puffin,provider})=>createComponent("github-issues",()=>{
+const component = ({API,options,puffin,provider})=>createComponent("github-issues-"+provider.repo.owner.toLowerCase()+provider.repo.repo.toLowerCase(),()=>{
     let [issues,$issues] = useState([])
     useEffect(async ()=>{
         $issues(await provider.getIssues())

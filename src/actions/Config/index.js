@@ -16,7 +16,7 @@ import "../../components/DracText"
 import "../../components/DracTitle"
 import "../../components/DracInput"
 
-const component = ({puffin,API,data})=>createComponent("github-config",()=>{
+const component = ({puffin,API,data})=>createComponent("github-config-"+Math.floor(Math.random() * 100000),()=>{
     const [form,setForm] = useState({
         auth:null
     })
