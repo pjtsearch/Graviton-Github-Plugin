@@ -36,12 +36,12 @@ const component = ({puffin,actions})=>createComponent("github-home-menu",()=>{
 },puffin)
 
 export const open = async ({API,options}) =>{
-    var panel = options.panel
-    if (!options.panel || !document.body.contains(options.panel)) {
-        // panel = panels.create({API,options,panelItems:options.panelItems.filter(o=>o.open!==open)})
-        panel = panels.create({API,options,newItem:{open,name:"github-home-menu",args:{}}})
-        options.panel = panel
-    }
+    // var panel = options.panel
+    // if (!options.panel || !document.body.contains(options.panel)) {
+    //     // panel = panels.create({API,options,panelItems:options.panelItems.filter(o=>o.open!==open)})
+    //     panel = panels.create({API,options,newItem:{open,name:"github-home-menu",args:{}}})
+    //     options.panel = panel
+    // }
     // options.panelItems.push({open,args:{}})
 
     const actions = [
@@ -49,12 +49,19 @@ export const open = async ({API,options}) =>{
       {title:"Config",action:()=>Config.open({API,options})},
       {title:"UserInfo",action:()=>UserInfo.open({API,options})}
     ]
-    API.Tab({
+    // API.Tab({
+    //     title:"Github",
+    //     isEditor:false,
+    //     component:component({puffin:API.puffin,actions}),
+    //     panel,
+    //     id:`github-home-menu:${panel.id}`
+    // })
+    panels.openTab({
         title:"Github",
-        isEditor:false,
         component:component({puffin:API.puffin,actions}),
-        panel,
-        id:`github-home-menu:${panel.id}`
+        id:"github-home-menu",
+        API,
+        options
     })
 }
 
