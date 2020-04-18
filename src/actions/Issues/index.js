@@ -52,16 +52,23 @@ const component = ({API,options,puffin,provider})=>createComponent("github-issue
 
 export const open = async ({API,options}) =>{
     var provider = await getProvider({API})
-    var panel = options.panel
-    if (!options.panel || !document.body.contains(options.panel)) {
-        panel = panels.create({API})
-        options.panel = panel
-    }
-    API.Tab({
+    // var panel = options.panel
+    // if (!options.panel || !document.body.contains(options.panel)) {
+    //     panel = panels.create({API})
+    //     options.panel = panel
+    // }
+    // API.Tab({
+    //     title:"Issues",
+    //     isEditor:false,
+    //     component:component({API,options,puffin:API.puffin,provider}),
+    //     panel,
+    //     id:`github-issues:${panel.id}`
+    // })
+    panels.openTab({
         title:"Issues",
-        isEditor:false,
         component:component({API,options,puffin:API.puffin,provider}),
-        panel,
-        id:`github-issues:${panel.id}`
+        id:"github-issues",
+        API,
+        options
     })
 }

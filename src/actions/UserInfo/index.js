@@ -20,7 +20,7 @@ const component = ({puffin,provider})=>createComponent("user-info",()=>{
     useEffect(async ()=>{
         $data(await provider.getUserInfo())
     })
-    
+
     return html`
         <div>
             <img src="${data.avatar}"/>
@@ -42,16 +42,23 @@ const component = ({puffin,provider})=>createComponent("user-info",()=>{
 
 export const open = async ({API,options}) =>{
     var provider = await getProvider({API})
-    var panel = options.panel
-    if (!options.panel || !document.body.contains(options.panel)) {
-        panel = panels.create({API})
-        options.panel = panel
-    }
-    API.Tab({
+    // var panel = options.panel
+    // if (!options.panel || !document.body.contains(options.panel)) {
+    //     panel = panels.create({API})
+    //     options.panel = panel
+    // }
+    // API.Tab({
+    //     title:"User Info",
+    //     isEditor:false,
+    //     component:component({puffin:API.puffin,provider}),
+    //     panel,
+    //     id:`user-info:${panel.id}`
+    // })
+    panels.openTab({
         title:"User Info",
-        isEditor:false,
         component:component({puffin:API.puffin,provider}),
-        panel,
-        id:`user-info:${panel.id}`
+        id:"user-info",
+        API,
+        options
     })
 }
