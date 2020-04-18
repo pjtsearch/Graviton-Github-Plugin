@@ -1,3 +1,6 @@
+import * as HomeMenu from "../actions/HomeMenu"
+
+
 let tabs = []
 export const get = ()=> document.querySelectorAll("#mainpanel > *")
 export const getIds = ()=> [...get()].map(ele=>ele.id)
@@ -58,4 +61,17 @@ export const openTab = ({API,options,title,component,id}) => {
       panel,
       id:`${id}:${panel.id}`
   })
+}
+export const toggle = ({API,options})=>{
+  if (!options.panel || !document.body.contains(options.panel)){
+    if (!tabs.length) {
+      HomeMenu.open({API,options})
+    }else{
+      var panel = create({API})
+      options.panel = panel
+      restoreTabs()
+    }
+  }else{
+    remove({id:options.panel.id,RunningConfig:API.RunningConfig})
+  }
 }

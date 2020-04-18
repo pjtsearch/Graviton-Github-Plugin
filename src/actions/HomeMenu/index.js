@@ -65,10 +65,10 @@ export const open = async ({API,options}) =>{
     })
 }
 
-export const toggle = ({API,options}) =>{
-  if (!options.panel || !document.body.contains(options.panel)){
-    open({API,options})
-  }else{
-    panels.remove({id:options.panel.id,RunningConfig:API.RunningConfig})
-  }
-}
+// export const toggle = ({API,options}) =>{
+//   if (!options.panel || !document.body.contains(options.panel)){
+//     open({API,options})
+//   }else{
+//     panels.remove({id:options.panel.id,RunningConfig:API.RunningConfig})
+//   }
+// }

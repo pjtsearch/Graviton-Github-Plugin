@@ -6,4 +6,6 @@ export default (name,comp,puffin)=>{
         customElements.define(name, component(comp,{useShadowDOM:true}));
     }
     if (puffin) return puffin.element("<"+name+">"+"</"+name+">")
+    // FIXME: Update when Puffin updated in Graviton
+    // if (puffin) return puffin.element`<${name}></${name}>"`
 }
