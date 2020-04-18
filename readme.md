@@ -7,7 +7,7 @@ Github plugin for Graviton editor
 
 ## Setup
 1. Create a Personal Access Token on your Github account
-2. Open Config for the plugin, and put the token the "Auth" text input
+2. Open Config for the plugin, and put the token in the "Auth" text input
 
 ## Usage
 1. Commands in command prompt:
