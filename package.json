@@ -1,9 +1,10 @@
 {
   "name": "github",
-  "id":"github-plugin",
+  "id": "github-plugin",
   "version": "0.4.3",
   "description": "Github plugin for Graviton",
-  "main": "dist/index.js",
+  "mainDev": "dist/index.js",
+  "main": "index.js",
   "author": "PJTSearch",
   "license": "GPL-3.0-only",
   "private": false,
@@ -26,11 +27,13 @@
     "@rollup/plugin-typescript": "^4.0.0",
     "@types/parse-github-url": "^1.0.0",
     "rollup": "^2.4.0",
+    "rollup-plugin-copy": "^3.3.0",
     "typescript": "^3.8.3"
   },
   "scripts": {
     "build": "rollup --config ./rollup.config.js",
     "watch": "rollup --config ./rollup.config.js --watch",
+    "release": "rollup --config ./rollup.config.release.js",
     "types": "tsc --noEmit"
   }
 }
