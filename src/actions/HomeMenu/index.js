@@ -56,13 +56,15 @@ export const open = async ({API,options}) =>{
     //     panel,
     //     id:`github-home-menu:${panel.id}`
     // })
+    var {component:comp,render} = component({puffin:API.puffin,actions})
     panels.openTab({
         title:"Github",
-        component:component({puffin:API.puffin,actions}),
+        component:comp,
         id:"github-home-menu",
         API,
         options
     })
+    render()
 }
 
 // export const toggle = ({API,options}) =>{

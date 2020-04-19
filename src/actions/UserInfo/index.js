@@ -54,11 +54,14 @@ export const open = async ({API,options}) =>{
     //     panel,
     //     id:`user-info:${panel.id}`
     // })
+    var {component:comp,render} = component({puffin:API.puffin,provider})
+
     panels.openTab({
         title:"User Info",
-        component:component({puffin:API.puffin,provider}),
+        component:comp,
         id:"user-info",
         API,
         options
     })
+    render()
 }

@@ -52,11 +52,13 @@ const component = ({API,options,puffin,provider})=>createComponent("github-pullr
 
 export const open = async ({API,options}) =>{
     var provider = await getProvider({API})
+    var {component:comp,render} = component({API,options,puffin:API.puffin,provider})
     panels.openTab({
         title:"Pull Requests",
-        component:component({API,options,puffin:API.puffin,provider}),
+        component:comp,
         id:"github-pullrequests",
         API,
         options
     })
+    render()
 }

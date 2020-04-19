@@ -64,11 +64,13 @@ export const open = async ({API,options}) =>{
     //     panel,
     //     id:`github-issues:${panel.id}`
     // })
+    var {component:comp,render} = component({API,options,puffin:API.puffin,provider})
     panels.openTab({
         title:"Issues",
-        component:component({API,options,puffin:API.puffin,provider}),
+        component:comp,
         id:"github-issues",
         API,
         options
     })
+    render()
 }

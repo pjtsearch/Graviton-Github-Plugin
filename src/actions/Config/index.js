@@ -51,8 +51,10 @@ const component = ({puffin,API,data,close})=>createComponent("github-config-"+ne
 
 export const open = async ({API}) =>{
     var data = API.StaticConfig.data.github
+    var {component:comp,render} = component({puffin:API.puffin,API,data,close(){window.close()}})
     const window = API.Window({
-        component:component({puffin:API.puffin,API,data,close(){window.close()}}),
+        component:comp,
     })
     window.launch()
+    render()
 }
