@@ -1,6 +1,7 @@
 import * as UserInfo from "../actions/UserInfo"
 import * as Config from "../actions/Config"
 import * as Issues from "../actions/Issues"
+import * as PullRequests from "../actions/PullRequests"
 
 export const register = ({API,options}) => {
     API.RunningConfig.data.globalCommandPrompt = [
@@ -22,7 +23,12 @@ export const register = ({API,options}) => {
             action(){
                 Issues.open({API,options})
             }
+        },
+        {
+            label: "github prs",
+            action(){
+                PullRequests.open({API,options})
+            }
         }
     ]
 }
-
