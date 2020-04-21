@@ -7,6 +7,8 @@ export const register = ({API,options}) => {
 		action(){
 			panels.toggle({API,options})
 		},
+    component:()=>API.puffin.element`<span>Github</span>`,
     position: 'right'
 	})
+
 }

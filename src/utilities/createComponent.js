@@ -15,6 +15,7 @@ export default (name,comp,puffin)=>{
         component:()=>puffin.element`<div id="${id}" style="width:100%"></div>`,
         render:()=>{
           var ele = document.createElement(name)
+          console.log(id,ele)
           document.getElementById(id).appendChild(ele)
         }
       }
