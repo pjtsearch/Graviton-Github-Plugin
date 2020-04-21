@@ -1,3 +1,6 @@
+import * as HomeMenu from "../actions/HomeMenu"
+
+
 let tabs = []
 export const get = ()=> document.querySelectorAll("#mainpanel > *")
 export const getIds = ()=> [...get()].map(ele=>ele.id)
@@ -33,7 +36,7 @@ export const create = ({API})=> {
     return panelElement
 }
 export const restoreTabs = ()=>{
-  tabs.forEach(openTab);
+  tabs.forEach(restoreTab);
 }
 export const remove = ({id,RunningConfig,events}) => {
     if (document.getElementById(id)){
@@ -54,8 +57,33 @@ export const openTab = ({API,options,title,component,id}) => {
   API.Tab({
       title:title,
       isEditor:false,
-      component,
+      component:component.component,
       panel,
       id:`${id}:${panel.id}`
   })
+  component.render()
+}
+const restoreTab = ({API,options,title,component,id})=>{
+  var panel = options.panel
+  API.Tab({
+      title:title,
+      isEditor:false,
+      component:component.component,
+      panel,
+      id:`${id}:${panel.id}`
+  })
+  component.render()
+}
+export const toggle = ({API,options})=>{
+  if (!options.panel || !document.body.contains(options.panel)){
+    if (!tabs.length) {
+      HomeMenu.open({API,options})
+    }else{
+      var panel = create({API})
+      options.panel = panel
+      restoreTabs()
+    }
+  }else{
+    remove({id:options.panel.id,RunningConfig:API.RunningConfig})
+  }
 }
