@@ -46,10 +46,8 @@ class Github {
             owner:this.repo.owner,
             repo:this.repo.repo,
         });
-        console.log(raw)
         const data = raw.map(this.parsePullRequest.bind(this))
         return data
-        // console.log(raw)
     }
     async getIssue({issueNumber}:{issueNumber:number}){
       const {data:raw} = await this.octokit.issues.get({
@@ -123,7 +121,6 @@ class Github {
         locked:boolean,
         assignees:any,
         milestone:any,
-        comments:number,
         created_at:string,
         updated_at:string,
         closed_at:string|null,
@@ -149,7 +146,6 @@ class Github {
           assignees:pr.assignees.map(this.parseUser),
           //  FIXME: parse milestone if neccessary
           milestone:pr.milestone,
-          commentsAmount:pr.comments,
           createdDate:new Date(pr.created_at),
           updatedDate:new Date(pr.updated_at),
           closedDate:pr.closed_at  ? new Date(pr.closed_at||"") : null,
