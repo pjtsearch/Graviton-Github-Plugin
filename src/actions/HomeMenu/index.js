@@ -17,6 +17,7 @@ import "../../components/DracText"
 import * as Issues from "../Issues"
 import * as Config from "../Config"
 import * as UserInfo from "../UserInfo"
+import * as PullRequests from "../PullRequests"
 
 const component = ({puffin,actions})=>createComponent("github-home-menu",()=>{
     useEffect(async ()=>{
@@ -47,7 +48,8 @@ export const open = async ({API,options}) =>{
     const actions = [
       {title:"Issues",action:()=>Issues.open({API,options})},
       {title:"Config",action:()=>Config.open({API,options})},
-      {title:"UserInfo",action:()=>UserInfo.open({API,options})}
+      {title:"UserInfo",action:()=>UserInfo.open({API,options})},
+      {title:"PullRequests",action:()=>PullRequests.open({API,options})},
     ]
     // API.Tab({
     //     title:"Github",

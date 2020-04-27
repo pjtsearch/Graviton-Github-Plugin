@@ -49,6 +49,32 @@ class Github {
         const data = raw.map(this.parsePullRequest.bind(this))
         return data
     }
+    async getPullRequest({prNumber}:{prNumber:number}){
+      const {data:raw} = await this.octokit.pulls.get({
+          owner:this.repo.owner,
+          repo:this.repo.repo,
+          pull_number:prNumber
+      });
+      const data = this.parsePullRequest(raw)
+      return data
+    }
+    async getPullRequestComments({prNumber}:{prNumber:number}){
+      const {data:issueComments} = await this.octokit.issues.listComments({
+          owner:this.repo.owner,
+          repo:this.repo.repo,
+          issue_number:prNumber
+      });
+      const {data:prComments} = await this.octokit.pulls.listComments({
+          owner:this.repo.owner,
+          repo:this.repo.repo,
+          pull_number:prNumber
+      });
+      const raw = [...issueComments,...prComments]
+      let data = raw.map(this.parseComment.bind(this))
+                    .slice()
+                    .sort((a, b) => a.createdDate.valueOf() - b.createdDate.valueOf())
+      return data
+    }
     async getIssue({issueNumber}:{issueNumber:number}){
       const {data:raw} = await this.octokit.issues.get({
           owner:this.repo.owner,

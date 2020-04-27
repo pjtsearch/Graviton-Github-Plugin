@@ -17,6 +17,7 @@ import "../../components/DracButton"
 import "../../components/DracText"
 import "../../components/DracTitle"
 import "../../components/DracCard"
+import * as PullRequest from "../PullRequest"
 
 const styles = vars => `
 :host{
@@ -37,7 +38,7 @@ const component = ({API,options,puffin,provider})=>createComponent("github-pullr
             ${prs.length
             ?
             prs.map(pr=>html`
-            <d-card .width=${"calc(100% - 10px)"} @click=${()=>{}}>
+            <d-card .width=${"calc(100% - 10px)"} @click=${()=>PullRequest.open({API,options,prNumber:pr.number})}>
               <d-txt>${pr.title}</d-txt>
             </d-card>
             `)
