@@ -10,12 +10,13 @@ import {
     useLayoutEffect,
     useReducer,
     useRef,
-    useContext
+    useContext,
+    virtual
   } from 'haunted';
 import "../../components/DracButton"
 import "../../components/DracText"
 
-const component = ({puffin,provider})=>createComponent("user-info",()=>{
+export const UserInfo = virtual(({provider})=>{
     let [data,$data] = useState({})
     useEffect(async ()=>{
         $data(await provider.getUserInfo())
@@ -38,29 +39,29 @@ const component = ({puffin,provider})=>createComponent("user-info",()=>{
             <d-txt>Plan: ${data.plan}</d-txt>
         </div>
     `;
-},puffin)
+})
 
-export const open = async ({API,options}) =>{
-    var provider = await getProvider({API})
-    // var panel = options.panel
-    // if (!options.panel || !document.body.contains(options.panel)) {
-    //     panel = panels.create({API})
-    //     options.panel = panel
-    // }
-    // API.Tab({
-    //     title:"User Info",
-    //     isEditor:false,
-    //     component:component({puffin:API.puffin,provider}),
-    //     panel,
-    //     id:`user-info:${panel.id}`
-    // })
-    var comp = component({puffin:API.puffin,provider})
+// export const open = async ({API,options}) =>{
+//     var provider = await getProvider({API})
+//     // var panel = options.panel
+//     // if (!options.panel || !document.body.contains(options.panel)) {
+//     //     panel = panels.create({API})
+//     //     options.panel = panel
+//     // }
+//     // API.Tab({
+//     //     title:"User Info",
+//     //     isEditor:false,
+//     //     component:component({puffin:API.puffin,provider}),
+//     //     panel,
+//     //     id:`user-info:${panel.id}`
+//     // })
+//     var comp = component({puffin:API.puffin,provider})
 
-    panels.openTab({
-        title:"User Info",
-        component:comp,
-        id:"user-info",
-        API,
-        options
-    })
-}
+//     panels.openTab({
+//         title:"User Info",
+//         component:comp,
+//         id:"user-info",
+//         API,
+//         options
+//     })
+// }
