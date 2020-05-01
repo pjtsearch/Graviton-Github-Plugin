@@ -8,7 +8,7 @@ export const entry = async (API) => {
 		title:'Github',
 		content:'Github started'
 	})
-	console.log(API.SidePanel)
+	// console.log(API.SidePanel)
 	var options = {panel:null}
 	// commandPrompt.register({API,options})
 	// statusBar.register({API,options})

@@ -1,4 +1,4 @@
-import { GithubPlugin } from "../GithubPlugin"
+import { GithubPlugin } from "../GithubPlugin.ts"
 
 export const register = ({API,options}) => {
     const githubPlugin = GithubPlugin({API})

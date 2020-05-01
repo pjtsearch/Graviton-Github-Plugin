@@ -17,14 +17,14 @@ import "../../components/DracButton"
 import "../../components/DracText"
 
 export const UserInfo = virtual(({provider})=>{
-    let [data,$data] = useState({})
-    useEffect(async ()=>{
+    let [data,$data] = useState(null)
+    useEffect(()=>{(async ()=>{
         $data(await provider.getUserInfo())
-    })
+    })()},[])
 
     return html`
         <div>
-            <img src="${data.avatar}"/>
+        ${data && html`<img src="${data.avatar}"/>
             <d-txt>Name: ${data.name}</d-txt>
             <d-txt>Login: ${data.login}</d-txt>
             <d-txt>Company: ${data.company}</d-txt>
@@ -36,7 +36,8 @@ export const UserInfo = virtual(({provider})=>{
             <d-txt>Public Repositories: ${data.publicRepos}</d-txt>
             <d-txt>Private Repositories: ${data.privateRepos}</d-txt>
             <d-txt>Disk Usage: ${data.diskUsage}</d-txt>
-            <d-txt>Plan: ${data.plan}</d-txt>
+            <d-txt>Plan: ${data.plan}</d-txt>`}
+            
         </div>
     `;
 })
