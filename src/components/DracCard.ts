@@ -51,7 +51,7 @@ const styles = styled("div", `
 
 export const DracCard = ({width="auto",children})=>{
     return html`
-      <${styles}>
+      <${styles} style="${`width:${width};`}">
         ${children}
       </${styles}>
     `
