@@ -4,11 +4,12 @@ import {Component} from "preact"
 import { html } from 'htm/preact';
 import { useState,useEffect } from 'preact/hooks';
 
-import {UserInfo} from "./actions/index"
+import {UserInfo,Issues} from "./actions/index"
 
 const Comp = ({API})=>{
   const pages:{[key:string]:(...args:any) => preact.VNode<{}>} = {
-    UserInfo
+    UserInfo,
+    Issues
   }
   const [page, $page] = useState("UserInfo");
   const [provider, $provider] = useState(null);
@@ -23,7 +24,7 @@ const Comp = ({API})=>{
   return html`
     <div>
       ${Object.entries(pages).map(([name])=>html`
-        <button onClick=${$page(name)}>${name}</button>
+        <button onClick=${()=>$page(name)}>${name}</button>
       `)}
       ${page && provider && html`<${pages[page]} provider=${provider}/>`}
     </div>

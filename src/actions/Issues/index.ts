@@ -2,60 +2,46 @@ import * as panels from "../../utilities/panels"
 import createComponent from "../../utilities/createComponent"
 import getProvider from "../../utilities/getProvider"
 import * as Issue from "../Issue"
-import {
-    html,
-    useState,
-    useMemo,
-    useCallback,
-    useEffect,
-    useLayoutEffect,
-    useReducer,
-    useRef,
-    useContext,
-    virtual
-  } from 'haunted';
+import { useState,useEffect } from 'preact/hooks';
+import { html } from 'htm/preact';
 // import "../../components/DracButton"
 // import "../../components/DracText"
 // import "../../components/DracTitle"
 // import "../../components/DracCard"
 
-import {DracText} from "../../components/index"
+import {DracText,DracCard} from "../../components/index"
 
 
-const styles = (vars?) => `
-:host{
-  width:100%;
-}
-`
+// const styles = (vars?) => `
+// :host{
+//   width:100%;
+// }
+// `
 
-export const Issues = virtual(({provider})=>{
+export const Issues = ({provider})=>{
     let [issues,$issues] = useState([])
     useEffect(()=>{(async ()=>{
         $issues(await provider.getIssues())
     })()}, [])
 
     return html`
-        <style>${styles()}</style>
         <div>
-            <d-title .level=${2}>Issues</d-title>
+            <${DracText}>Issues</${DracText}>
             ${issues.length
             ?
-            /*<d-card .width=${"calc(100% - 10px)"} @click=${()=>Issue.open({API,options,issueNumber:issue.number})}>
-              <d-txt>${issue.title}</d-txt>
-            </d-card>*/
             issues.map(issue=>html`
-            <d-card .width=${"calc(100% - 10px)"}>
-              <d-txt>${issue.title}</d-txt>
-            </d-card>
+            <${DracCard} width=${"calc(100% - 10px)"}>
+              <${DracText}>${issue.title}</${DracText}>
+            </${DracCard}>
             `)
             :
             html`
-            <d-txt>Loading...</d-txt>
+            <${DracText}>Loading...</${DracText}>
             `
             }
         </div>
     `;
-})
+}
 
 // export const open = async ({API,options}) =>{
 //     var provider = await getProvider({API})
