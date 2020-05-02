@@ -3,8 +3,7 @@ import getProvider from "../../utilities/getProvider"
 import { useState,useEffect } from 'preact/hooks';
 import { html } from 'htm/preact';
 
-import "../../components/DracButton"
-import "../../components/DracText"
+import {DracText} from "../../components/index"
 
 export const UserInfo = ({provider})=>{
     let [data,$data] = useState(null)
@@ -15,18 +14,18 @@ export const UserInfo = ({provider})=>{
     return html`
         <div>
         ${data && html`<img src="${data.avatar}"/>
-            <span>Name: ${data.name}</span>
-            <span>Login: ${data.login}</span>
-            <span>Company: ${data.company}</span>
-            <span>Blog: ${data.blog}</span>
-            <span>Location: ${data.location}</span>
-            <span>Email: ${data.email}</span>
-            <span>Hireable: ${data.hireable}</span>
-            <span>Bio: ${data.bio}</span>
-            <span>Public Repositories: ${data.publicRepos}</span>
-            <span>Private Repositories: ${data.privateRepos}</span>
-            <span>Disk Usage: ${data.diskUsage}</span>
-            <span>Plan: ${data.plan}</span>`}
+            <${DracText}>Name: ${data.name}</${DracText}>
+            <${DracText}>Login: ${data.login}</${DracText}>
+            <${DracText}>Company: ${data.company}</${DracText}>
+            <${DracText}>Blog: ${data.blog}</${DracText}>
+            <${DracText}>Location: ${data.location}</${DracText}>
+            <${DracText}>Email: ${data.email}</${DracText}>
+            <${DracText}>Hireable: ${data.hireable}</${DracText}>
+            <${DracText}>Bio: ${data.bio}</${DracText}>
+            <${DracText}>Public Repositories: ${data.publicRepos}</${DracText}>
+            <${DracText}>Private Repositories: ${data.privateRepos}</${DracText}>
+            <${DracText}>Disk Usage: ${data.diskUsage}</${DracText}>
+            <${DracText}>Plan: ${data.plan}</${DracText}>`}
             
         </div>
     `;

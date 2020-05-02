@@ -14,10 +14,13 @@ import {
     useContext,
     virtual
   } from 'haunted';
-import "../../components/DracButton"
-import "../../components/DracText"
-import "../../components/DracTitle"
-import "../../components/DracCard"
+// import "../../components/DracButton"
+// import "../../components/DracText"
+// import "../../components/DracTitle"
+// import "../../components/DracCard"
+
+import {DracText} from "../../components/index"
+
 
 const styles = (vars?) => `
 :host{

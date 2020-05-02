@@ -22,8 +22,9 @@ const Comp = ({API})=>{
 
   return html`
     <div>
-      <button onClick=${()=>$page("Test")}>Test</button>
-      <button onClick=${()=>$page("Counter")}>Counter</button>
+      ${Object.entries(pages).map(([name])=>html`
+        <button onClick=${$page(name)}>${name}</button>
+      `)}
       ${page && provider && html`<${pages[page]} provider=${provider}/>`}
     </div>
   `;
