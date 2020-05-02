@@ -49,7 +49,7 @@ const styles = styled("div", `
 }
 `)
 
-export const DracCard = ({width="auto",children})=>{
+export const DracCard = ({width="auto",children}:{width:string|number,children:any[]})=>{
     return html`
       <${styles} style="${`width:${width};`}">
         ${children}

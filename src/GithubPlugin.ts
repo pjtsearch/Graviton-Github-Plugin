@@ -6,7 +6,7 @@ import { useState,useEffect } from 'preact/hooks';
 
 import {UserInfo,Issues} from "./actions/index"
 
-const Comp = ({API})=>{
+const Comp = ({API}:{API:{RunningConfig:any}})=>{
   const pages:{[key:string]:(...args:any) => preact.VNode<{}>} = {
     UserInfo,
     Issues

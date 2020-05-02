@@ -1,6 +1,3 @@
-import * as panels from "../../utilities/panels"
-import createComponent from "../../utilities/createComponent"
-import getProvider from "../../utilities/getProvider"
 import * as Issue from "../Issue"
 import { useState,useEffect } from 'preact/hooks';
 import { html } from 'htm/preact';
@@ -17,9 +14,10 @@ import {DracText,DracCard} from "../../components/index"
 //   width:100%;
 // }
 // `
-
-export const Issues = ({provider})=>{
-    let [issues,$issues] = useState([])
+//FIXME: add provider type
+export const Issues = ({provider}:{provider:any})=>{
+    //FIXME: add type
+    let [issues,$issues]:any[] = useState([])
     useEffect(()=>{(async ()=>{
         $issues(await provider.getIssues())
     })()}, [])
@@ -29,7 +27,7 @@ export const Issues = ({provider})=>{
             <${DracText}>Issues</${DracText}>
             ${issues.length
             ?
-            issues.map(issue=>html`
+            issues.map((issue:any)=>html`
             <${DracCard} width=${"calc(100% - 10px)"}>
               <${DracText}>${issue.title}</${DracText}>
             </${DracCard}>

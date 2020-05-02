@@ -30,7 +30,8 @@ const span = styled("span", `
 }
 `);
 
-export const DracText = ({inline=false,children})=>{
+//FIXME: add type
+export const DracText = ({inline=false,children}:{inline:boolean,children:any[]})=>{
     return html`
       ${inline ?
         html`<${span}>${children}</${span}>`

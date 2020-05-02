@@ -5,8 +5,9 @@ import { html } from 'htm/preact';
 
 import {DracText} from "../../components/index"
 
-export const UserInfo = ({provider})=>{
-    let [data,$data] = useState(null)
+//FIXME: add provider type
+export const UserInfo = ({provider}:{provider:any})=>{
+    let [data,$data]:any[] = useState(null)
     useEffect(()=>{(async ()=>{
         $data(await provider.getUserInfo())
     })()},[])
