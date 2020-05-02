@@ -1,22 +1,12 @@
 import * as panels from "../../utilities/panels"
-import createComponent from "../../utilities/createComponent"
 import getProvider from "../../utilities/getProvider"
-import {
-    html,
-    useState,
-    useMemo,
-    useCallback,
-    useEffect,
-    useLayoutEffect,
-    useReducer,
-    useRef,
-    useContext,
-    virtual
-  } from 'haunted';
+import { useState,useEffect } from 'preact/hooks';
+import { html } from 'htm/preact';
+
 import "../../components/DracButton"
 import "../../components/DracText"
 
-export const UserInfo = virtual(({provider})=>{
+export const UserInfo = ({provider})=>{
     let [data,$data] = useState(null)
     useEffect(()=>{(async ()=>{
         $data(await provider.getUserInfo())
@@ -25,22 +15,22 @@ export const UserInfo = virtual(({provider})=>{
     return html`
         <div>
         ${data && html`<img src="${data.avatar}"/>
-            <d-txt>Name: ${data.name}</d-txt>
-            <d-txt>Login: ${data.login}</d-txt>
-            <d-txt>Company: ${data.company}</d-txt>
-            <d-txt>Blog: ${data.blog}</d-txt>
-            <d-txt>Location: ${data.location}</d-txt>
-            <d-txt>Email: ${data.email}</d-txt>
-            <d-txt>Hireable: ${data.hireable}</d-txt>
-            <d-txt>Bio: ${data.bio}</d-txt>
-            <d-txt>Public Repositories: ${data.publicRepos}</d-txt>
-            <d-txt>Private Repositories: ${data.privateRepos}</d-txt>
-            <d-txt>Disk Usage: ${data.diskUsage}</d-txt>
-            <d-txt>Plan: ${data.plan}</d-txt>`}
+            <span>Name: ${data.name}</span>
+            <span>Login: ${data.login}</span>
+            <span>Company: ${data.company}</span>
+            <span>Blog: ${data.blog}</span>
+            <span>Location: ${data.location}</span>
+            <span>Email: ${data.email}</span>
+            <span>Hireable: ${data.hireable}</span>
+            <span>Bio: ${data.bio}</span>
+            <span>Public Repositories: ${data.publicRepos}</span>
+            <span>Private Repositories: ${data.privateRepos}</span>
+            <span>Disk Usage: ${data.diskUsage}</span>
+            <span>Plan: ${data.plan}</span>`}
             
         </div>
     `;
-})
+}
 
 // export const open = async ({API,options}) =>{
 //     var provider = await getProvider({API})

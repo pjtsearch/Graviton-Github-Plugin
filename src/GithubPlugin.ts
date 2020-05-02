@@ -1,52 +1,32 @@
-import {
-    html,
-    useState,
-    useMemo,
-    useCallback,
-    useEffect,
-    useLayoutEffect,
-    useReducer,
-    useRef,
-    useContext,
-    virtual
-  } from 'haunted';
-  import "./components/DracTitle"
-  import createComponent from "./utilities/createComponent"
+import {createPreactComponent} from "./utilities/createComponent"
 import getProvider from "./utilities/getProvider"
+import {Component} from "preact"
+import { html } from 'htm/preact';
+import { useState,useEffect } from 'preact/hooks';
 
-import { UserInfo, Issues } from './actions/index';
+import {UserInfo} from "./actions/index"
 
-export const GithubPlugin = ({API})=>createComponent("github-plugin",()=>{
-    const [provider,$provider] = useState(null)
-    const [currentPage,$currentPage] = useState(null)
-    const [pageArgs,$pageArgs] = useState(null)
-    const pages = {
-      "UserInfo":UserInfo,
-      "Issues":Issues
-    }
-    useEffect(()=>{
-      API.RunningConfig.on('addFolderToRunningWorkspace', async()=>{
-          const p = await getProvider({API})
-          $provider(p)
-      })
-    },[])
-    useEffect(()=>{
-      if (provider){
-        open("Issues",{provider})
-      }
-    },[provider])
+const Comp = ({API})=>{
+  const pages:{[key:string]:(...args:any) => preact.VNode<{}>} = {
+    UserInfo
+  }
+  const [page, $page] = useState("UserInfo");
+  const [provider, $provider] = useState(null);
 
+  useEffect(()=>{
+    API.RunningConfig.on('addFolderToRunningWorkspace', async()=>{
+        const p = await getProvider({API})
+        $provider(p)
+    })
+  },[])
 
-    const open = (page,args) => {
-      $pageArgs(args)
-      $currentPage(page)
-    }
-    return html`
-        <div>
-          <d-title>Github</d-title>
-          ${!provider ? "Loading" : html`
-            ${(pages[currentPage] && pageArgs) && pages[currentPage](pageArgs)}
-          `}
-        </div>
-    `;
-},API.puffin)
+  return html`
+    <div>
+      <button onClick=${()=>$page("Test")}>Test</button>
+      <button onClick=${()=>$page("Counter")}>Counter</button>
+      ${page && provider && html`<${pages[page]} provider=${provider}/>`}
+    </div>
+  `;
+}
+
+export const GithubPlugin = ({API}:{API:{RunningConfig:any,puffin:any}})=>createPreactComponent(html`<${Comp} API=${API}/>`,API.puffin)
