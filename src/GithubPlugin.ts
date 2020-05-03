@@ -5,6 +5,7 @@ import { html } from 'htm/preact';
 import { useState,useEffect } from 'preact/hooks';
 
 import {UserInfo,Issues} from "./actions/index"
+import { DracButton } from "./components/index";
 
 const Comp = ({API}:{API:{RunningConfig:any}})=>{
   const pages:{[key:string]:(...args:any) => preact.VNode<{}>} = {
@@ -24,7 +25,7 @@ const Comp = ({API}:{API:{RunningConfig:any}})=>{
   return html`
     <div>
       ${Object.entries(pages).map(([name])=>html`
-        <button onClick=${()=>$page(name)}>${name}</button>
+        <${DracButton} onClick=${()=>$page(name)}>${name}</${DracButton}>
       `)}
       ${page && provider && html`<${pages[page]} provider=${provider}/>`}
     </div>
