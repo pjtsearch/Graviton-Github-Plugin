@@ -4,15 +4,17 @@ import {Component} from "preact"
 import { html } from 'htm/preact';
 import { useState,useEffect } from 'preact/hooks';
 
-import {UserInfo,Issues} from "./actions/index"
+import {UserInfo,Issues,Issue} from "./actions/index"
 import { DracButton } from "./components/index";
 
 const Comp = ({API}:{API:{RunningConfig:any}})=>{
   const pages:{[key:string]:(...args:any) => preact.VNode<{}>} = {
     UserInfo,
-    Issues
+    Issues,
+    Issue
   }
   const [page, $page] = useState("UserInfo");
+  const [pageArgs, $pageArgs] = useState({});
   const [provider, $provider] = useState(null);
 
   useEffect(()=>{
@@ -22,12 +24,18 @@ const Comp = ({API}:{API:{RunningConfig:any}})=>{
     })
   },[])
 
+  const open = (page:string,args:any)=>{
+    console.log("open")
+    $page(page)
+    $pageArgs(args)
+  }
+
   return html`
     <div>
       ${Object.entries(pages).map(([name])=>html`
         <${DracButton} onClick=${()=>$page(name)}>${name}</${DracButton}>
       `)}
-      ${page && provider && html`<${pages[page]} provider=${provider}/>`}
+      ${page && provider && html`<${pages[page]} provider=${provider} open=${open} args=${pageArgs}/>`}
     </div>
   `;
 }

@@ -49,9 +49,9 @@ const styles = styled("div", `
 }
 `)
 
-export const DracCard = ({width="auto",children}:{width:string|number,children:any[]})=>{
+export const DracCard = ({width="auto",children,onclick}:{width:string|number,children:any[],onclick?:Function})=>{
     return html`
-      <${styles} style="${`width:${width};`}">
+      <${styles} style="${`width:${width};`}" onclick=${()=>onclick ? onclick():null}>
         ${children}
       </${styles}>
     `

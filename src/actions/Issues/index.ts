@@ -1,4 +1,3 @@
-import * as Issue from "../Issue"
 import { useState,useEffect } from 'preact/hooks';
 import { html } from 'htm/preact';
 // import "../../components/DracButton"
@@ -15,7 +14,7 @@ import {DracText,DracCard} from "../../components/index"
 // }
 // `
 //FIXME: add provider type
-export const Issues = ({provider}:{provider:any})=>{
+export const Issues = ({provider,open,args}:{provider:any,open:Function,args?:any})=>{
     //FIXME: add type
     let [issues,$issues]:any[] = useState([])
     useEffect(()=>{(async ()=>{
@@ -28,7 +27,7 @@ export const Issues = ({provider}:{provider:any})=>{
             ${issues.length
             ?
             issues.map((issue:any)=>html`
-            <${DracCard} width=${"calc(100% - 10px)"}>
+            <${DracCard} width=${"calc(100% - 10px)"} onclick=${()=>open("Issue",{number:issue.number})}>
               <${DracText}>${issue.title}</${DracText}>
             </${DracCard}>
             `)
