@@ -1,8 +1,7 @@
 import { useState,useEffect } from 'preact/hooks';
 import { html } from 'htm/preact';
 
-import {DracText,DracCard,DracButton,DracInput} from "../../components/index"
-// import {DracText,DracCard,DracInput,DracTitle,DracButton} from "../../components/index"
+import {DracText,DracCard,DracInput,DracTitle,DracButton} from "../../components/index"
 import styled from 'preact-css-styled';
 
 
@@ -83,7 +82,7 @@ export const Issue = ({provider,open,args:{number:issueNumber}}:{provider:any,op
               ${issue.title
                 ?
                 html`
-                <${DracText} level=${2}>${issue.title}</${DracText}>
+                <${DracTitle} level=${2}>${issue.title}</${DracTitle}>
                 <${DracCard} width=${"calc(100% - 10px)"}>
                   <img height="20" src=${issue.creator.avatar}/>
                   <${DracText} inline=${true}>${issue.creator.login}</${DracText}>
@@ -94,6 +93,7 @@ export const Issue = ({provider,open,args:{number:issueNumber}}:{provider:any,op
                 :
                 html`<p>Loading...</p>`
               }
+              //FIXME: what if there are no comments, but is fully loaded?
               ${comments.length
                 ?
                 comments.map((comment:any)=>html`

@@ -5,7 +5,7 @@ import { html } from 'htm/preact';
 // import "../../components/DracTitle"
 // import "../../components/DracCard"
 
-import {DracText,DracCard} from "../../components/index"
+import {DracText, DracCard, DracTitle} from "../../components/index"
 
 
 // const styles = (vars?) => `
@@ -23,7 +23,7 @@ export const Issues = ({provider,open,args}:{provider:any,open:Function,args?:an
 
     return html`
         <div>
-            <${DracText}>Issues</${DracText}>
+            <${DracTitle} level=${2}>Issues</${DracTitle}>
             ${issues.length
             ?
             issues.map((issue:any)=>html`
