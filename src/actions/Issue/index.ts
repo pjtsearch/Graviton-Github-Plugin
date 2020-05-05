@@ -1,11 +1,12 @@
-import { useState,useEffect } from 'preact/hooks';
-import { html } from 'htm/preact';
+import { useState, useEffect } from "preact/hooks"
+import { html } from "htm/preact"
 
-import {DracText,DracCard,DracInput,DracTitle,DracButton} from "../../components/index"
-import styled from 'preact-css-styled';
+import { DracText, DracCard, DracInput, DracTitle, DracButton } from "../../components/index"
+import styled from "preact-css-styled"
 
-
-const styles = styled("div", `
+const styles = styled(
+  "div",
+  `
 {
   position:relative;
 }
@@ -54,34 +55,42 @@ const styles = styled("div", `
 }
 :host ::-webkit-scrollbar-track {
 }
-`)
+`
+)
 
-export const Issue = ({provider,open,args:{number:issueNumber}}:{provider:any,open:Function,args?:any})=>{
-    let [comments,$comments]:any[] = useState([])
-    let [issue,$issue]:any[] = useState({})
-    let [comment,$comment] = useState("")
+export const Issue = ({
+  provider,
+  open,
+  args: { number: issueNumber }
+}: {
+  provider: any
+  open: Function
+  args?: any
+}) => {
+  let [comments, $comments]: any[] = useState([])
+  let [issue, $issue]: any[] = useState({})
+  let [comment, $comment] = useState("")
 
-    const update = async ()=> {
-      $issue(await provider.getIssue({issueNumber}))
-      $comments(await provider.getIssueComments({issueNumber}))
-    }
+  const update = async () => {
+    $issue(await provider.getIssue({ issueNumber }))
+    $comments(await provider.getIssueComments({ issueNumber }))
+  }
 
+  useEffect(() => {
+    update()
+  }, [])
 
-    useEffect(()=>{
-        update()
-    }, [])
-
-    const createComment = async (body:string)=>{
-      console.log(await provider.createComment({issueNumber,body}))
-      await update()
-    }
-
-    return html`
+  const createComment = async (body: string) => {
+    console.log(await provider.createComment({ issueNumber, body }))
+    await update()
+  }
+  //FIXME: what if there are no comments, but is fully loaded?
+  return html`
         <${styles} id="issue">
             <div id="issue-wrapper">
-              ${issue.title
-                ?
-                html`
+              ${
+                issue.title
+                  ? html`
                 <${DracTitle} level=${2}>${issue.title}</${DracTitle}>
                 <${DracCard} width=${"calc(100% - 10px)"}>
                   <img height="20" src=${issue.creator.avatar}/>
@@ -90,30 +99,33 @@ export const Issue = ({provider,open,args:{number:issueNumber}}:{provider:any,op
                   <${DracText}>${issue.body}</${DracText}>
                 </${DracCard}>
                 `
-                :
-                html`<p>Loading...</p>`
+                  : html`
+                      <p>Loading...</p>
+                    `
               }
-              //FIXME: what if there are no comments, but is fully loaded?
-              ${comments.length
-                ?
-                comments.map((comment:any)=>html`
+              ${
+                comments.length
+                  ? comments.map(
+                      (comment: any) => html`
                 <${DracCard} width=${"calc(100% - 10px)"}>
                   <img height="20" src=${comment.creator.avatar}/>
                   <${DracText} inline=${true}>${comment.creator.login}</${DracText}>
                   <br/>
                   <${DracText}>${comment.body}</${DracText}>
                 </${DracCard}>
-                `)
-                :
-                html`Loading...`
+                `
+                    )
+                  : html`
+                      Loading...
+                    `
               }
             </div>
             <div id="input-box">
-              <${DracInput} onInput=${(e:any)=>$comment(e.target.value)} height=${"100%"}></${DracInput}>
-              <${DracButton} onclick=${()=>createComment(comment)}>Send</${DracButton}>
+              <${DracInput} onInput=${(e: any) => $comment(e.target.value)} height=${"100%"}></${DracInput}>
+              <${DracButton} onclick=${() => createComment(comment)}>Send</${DracButton}>
             </div>
         </${styles}>
-    `;
+    `
 }
 
 // export const open = async ({API,issueNumber,options}) =>{

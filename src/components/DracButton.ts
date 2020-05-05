@@ -1,6 +1,8 @@
-import styled from "preact-css-styled";
+import styled from "preact-css-styled"
 
-export const DracButton = styled("button",`
+export const DracButton = styled(
+  "button",
+  `
     {
         --font:Montserrat, sans-serif;
         --accentColor:#0066FF;
@@ -35,4 +37,5 @@ export const DracButton = styled("button",`
         pointer-events: none;
         background:var(--puffinDisabledColor,var(--disabledColor));
     }
-  `)
+  `
+)

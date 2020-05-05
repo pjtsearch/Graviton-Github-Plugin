@@ -1,8 +1,10 @@
-import { html } from 'htm/preact';
-import { useState,useEffect } from 'preact/hooks';
-import styled from "preact-css-styled";
+import { html } from "htm/preact"
+import { useState, useEffect } from "preact/hooks"
+import styled from "preact-css-styled"
 
-  const styles = styled("input",`
+const styles = styled(
+  "input",
+  `
 {
   background:var(--inputBackground);
   outline: none;
@@ -13,16 +15,11 @@ import styled from "preact-css-styled";
   width: 100%;
   height: auto;
 }
-  `)
+  `
+)
 
-export const DracInput = ({
-  height="auto",
-  onInput=(e:any)=>{}
-})=>{
+export const DracInput = ({ height = "auto", onInput = (e: any) => {} }) => {
   return html`
-    <${styles}
-    style=${`height:${height}`}
-    onInput=${(e:any)=>onInput(e)}
-    />
+    <${styles} style=${`height:${height}`} onInput=${(e: any) => onInput(e)} />
   `
 }

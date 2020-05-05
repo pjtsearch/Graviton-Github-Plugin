@@ -1,16 +1,16 @@
 import * as panels from "../../utilities/panels"
 import createComponent from "../../utilities/createComponent"
 import {
-    html,
-    useState,
-    useMemo,
-    useCallback,
-    useEffect,
-    useLayoutEffect,
-    useReducer,
-    useRef,
-    useContext
-  } from 'haunted';
+  html,
+  useState,
+  useMemo,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useReducer,
+  useRef,
+  useContext
+} from "haunted"
 import "../../components/DracButton"
 import "../../components/DracText"
 import "../../components/DracTitle"
@@ -28,33 +28,47 @@ const styles = vars => `
 }
 `
 
-const component = ({puffin,API,data,close})=>createComponent("github-config-"+new Date().valueOf(),()=>{
-    const [form,setForm] = useState({
-        auth:data.auth
-    })
-    const submit = form=>{
-        API.StaticConfig.data.github = {...data,...form}
+const component = ({ puffin, API, data, close }) =>
+  createComponent(
+    "github-config-" + new Date().valueOf(),
+    () => {
+      const [form, setForm] = useState({
+        auth: data.auth
+      })
+      const submit = form => {
+        API.StaticConfig.data.github = { ...data, ...form }
         close()
-    }
-    return html`
+      }
+      return html`
         <div>
-            <style>${styles()}</style>
-            <d-title>Config</d-title>
-            <div class="field">
-              <d-txt>Auth:</d-txt>
-              <d-input @input=${e=>setForm({...form,auth:e.path[0].value})} .value=${data.auth}></d-input>
-            </div>
-            <d-btn @click=${()=>submit(form)}>Save</d-btn>
+          <style>
+            ${styles()}
+          </style>
+          <d-title>Config</d-title>
+          <div class="field">
+            <d-txt>Auth:</d-txt>
+            <d-input @input=${e => setForm({ ...form, auth: e.path[0].value })} .value=${data.auth}></d-input>
+          </div>
+          <d-btn @click=${() => submit(form)}>Save</d-btn>
         </div>
-    `;
-},puffin)
+      `
+    },
+    puffin
+  )
 
-export const open = async ({API}) =>{
-    var data = API.StaticConfig.data.github
-    var {component:comp,render} = component({puffin:API.puffin,API,data,close(){window.close()}})
-    const window = API.Window({
-        component:comp,
-    })
-    window.launch()
-    render()
+export const open = async ({ API }) => {
+  var data = API.StaticConfig.data.github
+  var { component: comp, render } = component({
+    puffin: API.puffin,
+    API,
+    data,
+    close() {
+      window.close()
+    }
+  })
+  const window = API.Window({
+    component: comp
+  })
+  window.launch()
+  render()
 }

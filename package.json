@@ -1,7 +1,7 @@
 {
   "name": "github",
   "id": "github-plugin",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "description": "Github plugin for Graviton",
   "mainDev": "dist/index.js",
   "main": "index.js",
@@ -29,6 +29,7 @@
     "@rollup/plugin-sucrase": "^3.0.0",
     "@rollup/plugin-typescript": "^4.0.0",
     "@types/parse-github-url": "^1.0.0",
+    "prettier-eslint-cli": "^5.0.0",
     "rollup": "^2.4.0",
     "rollup-plugin-copy": "^3.3.0",
     "typescript": "^3.8.3"
@@ -37,7 +38,8 @@
     "build": "rollup --config ./rollup.config.js",
     "watch": "rollup --config ./rollup.config.js --watch",
     "release": "rollup --config ./rollup.config.release.js",
-    "types": "tsc --noEmit"
+    "types": "tsc --noEmit",
+    "format": "prettier-eslint --write --no-semi --print-width 120 \"src/**/*.js\";prettier-eslint --write --no-semi --print-width 120 \"src/**/*.ts\""
   },
   "alias": {
     "react": "preact/compat",

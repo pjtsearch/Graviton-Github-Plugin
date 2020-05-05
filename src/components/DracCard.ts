@@ -1,7 +1,9 @@
-import styled from "preact-css-styled";
-import { html } from 'htm/preact';
+import styled from "preact-css-styled"
+import { html } from "htm/preact"
 
-const styles = styled("div", `
+const styles = styled(
+  "div",
+  `
 {
     --font:Montserrat, sans-serif;
     --accentColor:#0066FF;
@@ -47,12 +49,21 @@ const styles = styled("div", `
     pointer-events: none;
     background:var(--puffinDisabledColor,var(--disabledColor));
 }
-`)
+`
+)
 
-export const DracCard = ({width="auto",children,onclick}:{width:string|number,children:any[],onclick?:Function})=>{
-    return html`
-      <${styles} style="${`width:${width};`}" onclick=${()=>onclick ? onclick():null}>
+export const DracCard = ({
+  width = "auto",
+  children,
+  onclick
+}: {
+  width: string | number
+  children: any[]
+  onclick?: Function
+}) => {
+  return html`
+      <${styles} style="${`width:${width};`}" onclick=${() => (onclick ? onclick() : null)}>
         ${children}
       </${styles}>
     `
-};
+}

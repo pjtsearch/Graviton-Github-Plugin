@@ -1,8 +1,10 @@
-import { html } from 'htm/preact';
-import { useState,useEffect } from 'preact/hooks';
-import styled from "preact-css-styled";
+import { html } from "htm/preact"
+import { useState, useEffect } from "preact/hooks"
+import styled from "preact-css-styled"
 
-const p = styled("p", `
+const p = styled(
+  "p",
+  `
 {
   --accentColor:#0066FF;
     --secondaryColor:#EFEFEF;
@@ -14,9 +16,12 @@ const p = styled("p", `
     color:var(--puffinTextColor,var(--textColor));
     font-weight:normal;
 }
-`);
+`
+)
 
-const span = styled("span", `
+const span = styled(
+  "span",
+  `
 {
   --accentColor:#0066FF;
     --secondaryColor:#EFEFEF;
@@ -28,15 +33,12 @@ const span = styled("span", `
     color:var(--puffinTextColor,var(--textColor));
     font-weight:normal;
 }
-`);
+`
+)
 
 //FIXME: add type
-export const DracText = ({inline=false,children}:{inline:boolean,children:any[]})=>{
-    return html`
-      ${inline ?
-        html`<${span}>${children}</${span}>`
-        :
-        html` <${p}>${children}</${p}>`
-      }
-    `
+export const DracText = ({ inline = false, children }: { inline: boolean; children: any[] }) => {
+  return html`
+    ${inline ? html`<${span}>${children}</${span}>` : html` <${p}>${children}</${p}>`}
+  `
 }

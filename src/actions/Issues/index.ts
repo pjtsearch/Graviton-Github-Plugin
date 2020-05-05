@@ -1,12 +1,11 @@
-import { useState,useEffect } from 'preact/hooks';
-import { html } from 'htm/preact';
+import { useState, useEffect } from "preact/hooks"
+import { html } from "htm/preact"
 // import "../../components/DracButton"
 // import "../../components/DracText"
 // import "../../components/DracTitle"
 // import "../../components/DracCard"
 
-import {DracText, DracCard, DracTitle} from "../../components/index"
-
+import { DracText, DracCard, DracTitle } from "../../components/index"
 
 // const styles = (vars?) => `
 // :host{
@@ -14,30 +13,33 @@ import {DracText, DracCard, DracTitle} from "../../components/index"
 // }
 // `
 //FIXME: add provider type
-export const Issues = ({provider,open,args}:{provider:any,open:Function,args?:any})=>{
-    //FIXME: add type
-    let [issues,$issues]:any[] = useState([])
-    useEffect(()=>{(async ()=>{
-        $issues(await provider.getIssues())
-    })()}, [])
+export const Issues = ({ provider, open, args }: { provider: any; open: Function; args?: any }) => {
+  //FIXME: add type
+  let [issues, $issues]: any[] = useState([])
+  useEffect(() => {
+    ;(async () => {
+      $issues(await provider.getIssues())
+    })()
+  }, [])
 
-    return html`
+  return html`
         <div>
             <${DracTitle} level=${2}>Issues</${DracTitle}>
-            ${issues.length
-            ?
-            issues.map((issue:any)=>html`
-            <${DracCard} width=${"calc(100% - 10px)"} onclick=${()=>open("Issue",{number:issue.number})}>
+            ${
+              issues.length
+                ? issues.map(
+                    (issue: any) => html`
+            <${DracCard} width=${"calc(100% - 10px)"} onclick=${() => open("Issue", { number: issue.number })}>
               <${DracText}>${issue.title}</${DracText}>
             </${DracCard}>
-            `)
-            :
-            html`
+            `
+                  )
+                : html`
             <${DracText}>Loading...</${DracText}>
             `
             }
         </div>
-    `;
+    `
 }
 
 // export const open = async ({API,options}) =>{

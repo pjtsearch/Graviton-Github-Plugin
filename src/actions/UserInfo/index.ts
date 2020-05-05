@@ -1,20 +1,23 @@
 import * as panels from "../../utilities/panels"
 import getProvider from "../../utilities/getProvider"
-import { useState,useEffect } from 'preact/hooks';
-import { html } from 'htm/preact';
+import { useState, useEffect } from "preact/hooks"
+import { html } from "htm/preact"
 
-import {DracText} from "../../components/index"
+import { DracText } from "../../components/index"
 
 //FIXME: add provider type
-export const UserInfo = ({provider,open,args}:{provider:any,open?:Function,args?:any})=>{
-    let [data,$data]:any[] = useState(null)
-    useEffect(()=>{(async ()=>{
-        $data(await provider.getUserInfo())
-    })()},[])
+export const UserInfo = ({ provider, open, args }: { provider: any; open?: Function; args?: any }) => {
+  let [data, $data]: any[] = useState(null)
+  useEffect(() => {
+    ;(async () => {
+      $data(await provider.getUserInfo())
+    })()
+  }, [])
 
-    return html`
-        <div>
-        ${data && html`<img src="${data.avatar}"/>
+  return html`
+    <div>
+      ${data &&
+        html`<img src="${data.avatar}"/>
             <${DracText}>Name: ${data.name}</${DracText}>
             <${DracText}>Login: ${data.login}</${DracText}>
             <${DracText}>Company: ${data.company}</${DracText}>
@@ -27,9 +30,8 @@ export const UserInfo = ({provider,open,args}:{provider:any,open?:Function,args?
             <${DracText}>Private Repositories: ${data.privateRepos}</${DracText}>
             <${DracText}>Disk Usage: ${data.diskUsage}</${DracText}>
             <${DracText}>Plan: ${data.plan}</${DracText}>`}
-            
-        </div>
-    `;
+    </div>
+  `
 }
 
 // export const open = async ({API,options}) =>{
