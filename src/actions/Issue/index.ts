@@ -1,7 +1,7 @@
 import { useState,useEffect } from 'preact/hooks';
 import { html } from 'htm/preact';
 
-import {DracText,DracCard,DracButton} from "../../components/index"
+import {DracText,DracCard,DracButton,DracInput} from "../../components/index"
 // import {DracText,DracCard,DracInput,DracTitle,DracButton} from "../../components/index"
 import styled from 'preact-css-styled';
 
@@ -109,7 +109,7 @@ export const Issue = ({provider,open,args:{number:issueNumber}}:{provider:any,op
               }
             </div>
             <div id="input-box">
-              <input oninput=${(e:any)=>$comment(e.path[0].value)} height=${"100%"}></input>
+              <${DracInput} onInput=${(e:any)=>$comment(e.target.value)} height=${"100%"}></${DracInput}>
               <${DracButton} onclick=${()=>createComment(comment)}>Send</${DracButton}>
             </div>
         </${styles}>
