@@ -1,5 +1,7 @@
 import { Octokit } from "@octokit/rest";
 
+
+//FIXME: add types for everything
 class Github {
     octokit:Octokit=new Octokit;
     dir:string = ""

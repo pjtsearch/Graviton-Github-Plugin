@@ -1,7 +1,8 @@
 import { useState,useEffect } from 'preact/hooks';
 import { html } from 'htm/preact';
 
-import {DracText,DracCard,DracInput,DracTitle,DracButton} from "../../components/index"
+import {DracText,DracCard,DracButton} from "../../components/index"
+// import {DracText,DracCard,DracInput,DracTitle,DracButton} from "../../components/index"
 import styled from 'preact-css-styled';
 
 
@@ -57,8 +58,8 @@ const styles = styled("div", `
 `)
 
 export const Issue = ({provider,open,args:{number:issueNumber}}:{provider:any,open:Function,args?:any})=>{
-    let [comments,$comments] = useState([])
-    let [issue,$issue] = useState({})
+    let [comments,$comments]:any[] = useState([])
+    let [issue,$issue]:any[] = useState({})
     let [comment,$comment] = useState("")
 
     const update = async ()=> {
@@ -71,7 +72,7 @@ export const Issue = ({provider,open,args:{number:issueNumber}}:{provider:any,op
         update()
     }, [])
 
-    const createComment = async body=>{
+    const createComment = async (body:string)=>{
       console.log(await provider.createComment({issueNumber,body}))
       await update()
     }
@@ -95,7 +96,7 @@ export const Issue = ({provider,open,args:{number:issueNumber}}:{provider:any,op
               }
               ${comments.length
                 ?
-                comments.map(comment=>html`
+                comments.map((comment:any)=>html`
                 <${DracCard} width=${"calc(100% - 10px)"}>
                   <img height="20" src=${comment.creator.avatar}/>
                   <${DracText} inline=${true}>${comment.creator.login}</${DracText}>
@@ -108,7 +109,7 @@ export const Issue = ({provider,open,args:{number:issueNumber}}:{provider:any,op
               }
             </div>
             <div id="input-box">
-              <input oninput=${e=>$comment(e.path[0].value)} height=${"100%"}></input>
+              <input oninput=${(e:any)=>$comment(e.path[0].value)} height=${"100%"}></input>
               <${DracButton} onclick=${()=>createComment(comment)}>Send</${DracButton}>
             </div>
         </${styles}>
