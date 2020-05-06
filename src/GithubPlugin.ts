@@ -7,17 +7,26 @@ import { useState, useEffect } from "preact/hooks"
 import { UserInfo, Issues, Issue } from "./actions/index"
 import { DracButton } from "./components/index"
 
+import { PageHistory, Page } from "./utilities/PageHistory"
+
 const Comp = ({ API }: { API: { RunningConfig: any } }) => {
   const pages: { [key: string]: (...args: any) => preact.VNode<{}> } = {
     UserInfo,
     Issues,
     Issue
   }
-  const [page, $page] = useState("UserInfo")
+  const [page, $page] = useState("")
   const [pageArgs, $pageArgs] = useState({})
   const [provider, $provider] = useState(null)
+  let [hist, $hist] = useState(
+    new PageHistory((page: Page) => {
+      $page(page.page)
+      $pageArgs(page.args)
+    })
+  )
 
   useEffect(() => {
+    open("UserInfo", {})
     API.RunningConfig.on("addFolderToRunningWorkspace", async () => {
       const p = await getProvider({ API })
       $provider(p)
@@ -25,16 +34,15 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
   }, [])
 
   const open = (page: string, args: any) => {
-    console.log("open")
-    $page(page)
-    $pageArgs(args)
+    console.log("open", hist)
+    hist.pushState({ page, args })
   }
 
   return html`
     <div>
       ${Object.entries(pages).map(
         ([name]) => html`
-        <${DracButton} onClick=${() => $page(name)}>${name}</${DracButton}>
+        <${DracButton} onClick=${() => open(name, {})}>${name}</${DracButton}>
       `
       )}
       ${page &&
