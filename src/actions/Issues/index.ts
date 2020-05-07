@@ -6,6 +6,7 @@ import { html } from "htm/preact"
 // import "../../components/DracCard"
 
 import { DracText, DracCard, DracTitle } from "../../components/index"
+import { PageHistory } from "../../utilities/PageHistory"
 
 // const styles = (vars?) => `
 // :host{
@@ -13,11 +14,11 @@ import { DracText, DracCard, DracTitle } from "../../components/index"
 // }
 // `
 //FIXME: add provider type
-export const Issues = ({ provider, open, args }: { provider: any; open: Function; args?: any }) => {
+export const Issues = ({ provider, hist, args }: { provider: any; hist: PageHistory; args?: any }) => {
   //FIXME: add type
   let [issues, $issues]: any[] = useState([])
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       $issues(await provider.getIssues())
     })()
   }, [])
@@ -29,7 +30,8 @@ export const Issues = ({ provider, open, args }: { provider: any; open: Function
               issues.length
                 ? issues.map(
                     (issue: any) => html`
-            <${DracCard} width=${"calc(100% - 10px)"} onclick=${() => open("Issue", { number: issue.number })}>
+            <${DracCard} width=${"calc(100% - 10px)"} onclick=${() =>
+                      hist.pushState({ page: "Issue", args: { number: issue.number } })}>
               <${DracText}>${issue.title}</${DracText}>
             </${DracCard}>
             `

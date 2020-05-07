@@ -4,12 +4,13 @@ import { useState, useEffect } from "preact/hooks"
 import { html } from "htm/preact"
 
 import { DracText } from "../../components/index"
+import { PageHistory } from "../../utilities/PageHistory"
 
 //FIXME: add provider type
-export const UserInfo = ({ provider, open, args }: { provider: any; open?: Function; args?: any }) => {
+export const UserInfo = ({ provider, hist, args }: { provider: any; hist?: PageHistory; args?: any }) => {
   let [data, $data]: any[] = useState(null)
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       $data(await provider.getUserInfo())
     })()
   }, [])

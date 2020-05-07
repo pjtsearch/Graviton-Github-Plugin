@@ -3,6 +3,7 @@ import { html } from "htm/preact"
 
 import { DracText, DracCard, DracInput, DracTitle, DracButton } from "../../components/index"
 import styled from "preact-css-styled"
+import { PageHistory } from "../../utilities/PageHistory"
 
 const styles = styled(
   "div",
@@ -60,11 +61,11 @@ const styles = styled(
 
 export const Issue = ({
   provider,
-  open,
+  hist,
   args: { number: issueNumber },
 }: {
   provider: any
-  open: Function
+  hist?: PageHistory
   args?: any
 }) => {
   let [comments, $comments]: any[] = useState([])

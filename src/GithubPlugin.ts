@@ -26,26 +26,21 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
   )
 
   useEffect(() => {
-    open("UserInfo", {})
+    hist.pushState({ page: "UserInfo", args: {} })
     API.RunningConfig.on("addFolderToRunningWorkspace", async () => {
       const p = await getProvider({ API })
       $provider(p)
     })
   }, [])
 
-  const open = (page: string, args: any) => {
-    console.log("open", hist)
-    hist.pushState({ page, args })
-  }
-
   return html`
     <div>
       ${Object.entries(pages).map(
         ([name]) => html`
-        <${DracButton} onClick=${() => open(name, {})}>${name}</${DracButton}>
+        <${DracButton} onClick=${() => hist.pushState({ page: name, args: {} })}>${name}</${DracButton}>
       `
       )}
-      ${page && provider && html` <${pages[page]} provider=${provider} open=${open} args=${pageArgs} /> `}
+      ${page && provider && html` <${pages[page]} provider=${provider} hist=${hist} args=${pageArgs} /> `}
     </div>
   `
 }
