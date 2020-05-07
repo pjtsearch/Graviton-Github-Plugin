@@ -2,6 +2,7 @@ module.exports = {
   env: {
     es6: true,
     node: true,
+    browser:true
   },
   extends: [
     "eslint:recommended",
@@ -22,7 +23,7 @@ module.exports = {
   },
   plugins: ["react", "@typescript-eslint"],
   rules: {
-    indent: ["error", 2],
+    indent: 0,
     "linebreak-style": ["error", "unix"],
     quotes: ["error", "double"],
     semi: ["error", "never"],

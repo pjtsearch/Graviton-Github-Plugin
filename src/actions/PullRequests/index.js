@@ -11,7 +11,7 @@ import {
   useLayoutEffect,
   useReducer,
   useRef,
-  useContext
+  useContext,
 } from "haunted"
 import "../../components/DracButton"
 import "../../components/DracText"
@@ -19,7 +19,7 @@ import "../../components/DracTitle"
 import "../../components/DracCard"
 import * as PullRequest from "../PullRequest"
 
-const styles = vars => `
+const styles = (vars) => `
 :host{
   width:100%;
 }
@@ -42,7 +42,7 @@ const component = ({ API, options, puffin, provider }) =>
           <d-title .level=${2}>Pull Requests</d-title>
           ${prs.length
             ? prs.map(
-                pr => html`
+                (pr) => html`
                   <d-card
                     .width=${"calc(100% - 10px)"}
                     @click=${() => PullRequest.open({ API, options, prNumber: pr.number })}
@@ -51,9 +51,7 @@ const component = ({ API, options, puffin, provider }) =>
                   </d-card>
                 `
               )
-            : html`
-                <d-txt>Loading...</d-txt>
-              `}
+            : html` <d-txt>Loading...</d-txt> `}
         </div>
       `
     },
@@ -68,6 +66,6 @@ export const open = async ({ API, options }) => {
     component: comp,
     id: "github-pullrequests",
     API,
-    options
+    options,
   })
 }

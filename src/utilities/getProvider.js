@@ -16,7 +16,7 @@ export default async ({ API }) => {
   if (!API.StaticConfig.data.github.auth) {
     API.Notification({
       title: "Github Plugin: No authentification provided",
-      content: "Opening config"
+      content: "Opening config",
     })
     // FIXME: add again
     // Config.open({API})

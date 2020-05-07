@@ -18,7 +18,7 @@ export const createComponent = (name, comp, puffin) => {
         var ele = document.createElement(name)
         console.log(id, ele)
         document.getElementById(id).appendChild(ele)
-      }
+      },
     }
   }
 }
@@ -31,6 +31,6 @@ export const createPreactComponent = (comp, puffin) => {
     render: () => {
       console.log(comp, document.getElementById(id))
       render(comp, document.getElementById(id))
-    }
+    },
   }
 }

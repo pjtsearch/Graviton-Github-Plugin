@@ -9,7 +9,7 @@ import { DracText } from "../../components/index"
 export const UserInfo = ({ provider, open, args }: { provider: any; open?: Function; args?: any }) => {
   let [data, $data]: any[] = useState(null)
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       $data(await provider.getUserInfo())
     })()
   }, [])
@@ -17,7 +17,7 @@ export const UserInfo = ({ provider, open, args }: { provider: any; open?: Funct
   return html`
     <div>
       ${data &&
-        html`<img src="${data.avatar}"/>
+      html`<img src="${data.avatar}"/>
             <${DracText}>Name: ${data.name}</${DracText}>
             <${DracText}>Login: ${data.login}</${DracText}>
             <${DracText}>Company: ${data.company}</${DracText}>

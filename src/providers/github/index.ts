@@ -12,7 +12,7 @@ class Github {
   }
   async create({ auth }: { auth: string }) {
     this.octokit = new Octokit({
-      auth
+      auth,
     })
   }
   async getUserInfo() {
@@ -30,14 +30,14 @@ class Github {
       publicRepos: raw.public_repos,
       diskUsage: raw.disk_usage,
       privateRepos: raw.total_private_repos,
-      plan: raw.plan.name
+      plan: raw.plan.name,
     }
     return data
   }
   async getIssues() {
     const { data: raw } = await this.octokit.issues.listForRepo({
       owner: this.repo.owner,
-      repo: this.repo.repo
+      repo: this.repo.repo,
     })
     const data = raw.map(this.parseIssue.bind(this))
     return data
@@ -45,7 +45,7 @@ class Github {
   async getPullRequests() {
     const { data: raw } = await this.octokit.pulls.list({
       owner: this.repo.owner,
-      repo: this.repo.repo
+      repo: this.repo.repo,
     })
     const data = raw.map(this.parsePullRequest.bind(this))
     return data
@@ -54,7 +54,7 @@ class Github {
     const { data: raw } = await this.octokit.pulls.get({
       owner: this.repo.owner,
       repo: this.repo.repo,
-      pull_number: prNumber
+      pull_number: prNumber,
     })
     const data = this.parsePullRequest(raw)
     return data
@@ -63,12 +63,12 @@ class Github {
     const { data: issueComments } = await this.octokit.issues.listComments({
       owner: this.repo.owner,
       repo: this.repo.repo,
-      issue_number: prNumber
+      issue_number: prNumber,
     })
     const { data: prComments } = await this.octokit.pulls.listComments({
       owner: this.repo.owner,
       repo: this.repo.repo,
-      pull_number: prNumber
+      pull_number: prNumber,
     })
     const raw = [...issueComments, ...prComments]
     let data = raw
@@ -81,7 +81,7 @@ class Github {
     const { data: raw } = await this.octokit.issues.get({
       owner: this.repo.owner,
       repo: this.repo.repo,
-      issue_number: issueNumber
+      issue_number: issueNumber,
     })
     return this.parseIssue(raw)
   }
@@ -89,7 +89,7 @@ class Github {
     const { data: raw } = await this.octokit.issues.listComments({
       owner: this.repo.owner,
       repo: this.repo.repo,
-      issue_number: issueNumber
+      issue_number: issueNumber,
     })
     return raw.map(this.parseComment.bind(this))
   }
@@ -98,7 +98,7 @@ class Github {
       owner: this.repo.owner,
       repo: this.repo.repo,
       issue_number: issueNumber,
-      body
+      body,
     })
     return raw
   }
@@ -135,7 +135,7 @@ class Github {
       createdDate: new Date(issue.created_at),
       updatedDate: new Date(issue.updated_at),
       closedDate: issue.closed_at ? new Date(issue.closed_at || "") : null,
-      body: issue.body
+      body: issue.body,
     }
   }
   private parsePullRequest(pr: {
@@ -189,15 +189,15 @@ class Github {
         ref: pr.head.ref,
         sha: pr.head.sha,
         user: this.parseUser(pr.head.user),
-        repo: this.parseRepo(pr.head.repo)
+        repo: this.parseRepo(pr.head.repo),
       },
       base: {
         label: pr.base.label,
         ref: pr.base.ref,
         sha: pr.base.sha,
         user: this.parseUser(pr.base.user),
-        repo: this.parseRepo(pr.base.repo)
-      }
+        repo: this.parseRepo(pr.base.repo),
+      },
     }
   }
   private parseUser(user: { login: string; id: number; node_id: string; avatar_url: string; html_url: string }) {
@@ -206,7 +206,7 @@ class Github {
       id: user.id,
       altId: user.node_id,
       avatar: user.avatar_url,
-      url: user.html_url
+      url: user.html_url,
     }
   }
   private parseLabel(label: {
@@ -222,7 +222,7 @@ class Github {
       id: label.id,
       altId: label.node_id,
       color: label.color,
-      description: label.description
+      description: label.description,
     }
   }
   private parseComment(comment: {
@@ -241,7 +241,7 @@ class Github {
       creator: this.parseUser(comment.user),
       createdDate: new Date(comment.created_at),
       updatedDate: new Date(comment.updated_at),
-      body: comment.body
+      body: comment.body,
     }
   }
   private parseTeam(team: {
@@ -258,7 +258,7 @@ class Github {
       altId: team.node_id,
       name: team.name,
       slug: team.slug,
-      description: team.description
+      description: team.description,
     }
   }
   private parseRepo(r: {
@@ -328,7 +328,7 @@ class Github {
         projects: r.has_projects,
         wiki: r.has_wiki,
         pages: r.has_pages,
-        downloads: r.has_downloads
+        downloads: r.has_downloads,
       },
       archived: r.archived,
       disabled: r.disabled,
@@ -339,9 +339,9 @@ class Github {
       allowedMergeTypes: {
         rebase: r.allow_rebase_merge,
         squash: r.allow_squash_merge,
-        commit: r.allow_merge_commit
+        commit: r.allow_merge_commit,
       },
-      tempCloneToken: r.temp_clone_token
+      tempCloneToken: r.temp_clone_token,
     }
   }
 }

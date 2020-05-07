@@ -13,7 +13,7 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
   const pages: { [key: string]: (...args: any) => preact.VNode<{}> } = {
     UserInfo,
     Issues,
-    Issue
+    Issue,
   }
   const [page, $page] = useState("")
   const [pageArgs, $pageArgs] = useState({})
@@ -45,19 +45,10 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
         <${DracButton} onClick=${() => open(name, {})}>${name}</${DracButton}>
       `
       )}
-      ${page &&
-        provider &&
-        html`
-          <${pages[page]} provider=${provider} open=${open} args=${pageArgs} />
-        `}
+      ${page && provider && html` <${pages[page]} provider=${provider} open=${open} args=${pageArgs} /> `}
     </div>
   `
 }
 
 export const GithubPlugin = ({ API }: { API: { RunningConfig: any; puffin: any } }) =>
-  createPreactComponent(
-    html`
-      <${Comp} API=${API} />
-    `,
-    API.puffin
-  )
+  createPreactComponent(html` <${Comp} API=${API} /> `, API.puffin)

@@ -17,7 +17,7 @@ export const Issues = ({ provider, open, args }: { provider: any; open: Function
   //FIXME: add type
   let [issues, $issues]: any[] = useState([])
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       $issues(await provider.getIssues())
     })()
   }, [])

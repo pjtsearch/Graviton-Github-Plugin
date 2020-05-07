@@ -10,25 +10,25 @@ export const register = ({ API, options }) => {
       label: "github user-info",
       action() {
         UserInfo.open({ API, options })
-      }
+      },
     },
     {
       label: "github config",
       action() {
         Config.open({ API, options })
-      }
+      },
     },
     {
       label: "github issues",
       action() {
         Issues.open({ API, options })
-      }
+      },
     },
     {
       label: "github prs",
       action() {
         PullRequests.open({ API, options })
-      }
-    }
+      },
+    },
   ]
 }

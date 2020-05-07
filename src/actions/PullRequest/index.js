@@ -10,7 +10,7 @@ import {
   useLayoutEffect,
   useReducer,
   useRef,
-  useContext
+  useContext,
 } from "haunted"
 import "../../components/DracButton"
 import "../../components/DracText"
@@ -18,7 +18,7 @@ import "../../components/DracTitle"
 import "../../components/DracCard"
 import "../../components/DracInput"
 
-const styles = vars => `
+const styles = (vars) => `
 :host{
   width:100%;
 }
@@ -86,7 +86,7 @@ const component = ({ puffin, provider, prNumber }) =>
         await update()
       }, [])
 
-      const createComment = async body => {
+      const createComment = async (body) => {
         console.log(await provider.createComment({ issueNumber: prNumber, body }))
         await update()
       }
@@ -109,12 +109,10 @@ const component = ({ puffin, provider, prNumber }) =>
                     <d-txt>${pr.body}</d-txt>
                   </d-card>
                 `
-              : html`
-                  Loading...
-                `}
+              : html` Loading... `}
             ${comments
               ? comments.map(
-                  comment => html`
+                  (comment) => html`
                     <d-card .width=${"calc(100% - 10px)"}>
                       <img height="20" src=${comment.creator.avatar} />
                       <d-txt .inline=${true}>${comment.creator.login}</d-txt>
@@ -123,12 +121,10 @@ const component = ({ puffin, provider, prNumber }) =>
                     </d-card>
                   `
                 )
-              : html`
-                  Loading...
-                `}
+              : html` Loading... `}
           </div>
           <div id="input-box">
-            <d-input @input=${e => $comment(e.path[0].value)} .height=${"100%"}></d-input>
+            <d-input @input=${(e) => $comment(e.path[0].value)} .height=${"100%"}></d-input>
             <d-btn @click=${() => createComment(comment)}>Send</d-btn>
           </div>
         </div>
@@ -157,6 +153,6 @@ export const open = async ({ API, prNumber, options }) => {
     component: comp,
     id: `github-pr-${prNumber}`,
     API,
-    options
+    options,
   })
 }

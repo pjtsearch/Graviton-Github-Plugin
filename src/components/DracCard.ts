@@ -55,7 +55,7 @@ const styles = styled(
 export const DracCard = ({
   width = "auto",
   children,
-  onclick
+  onclick,
 }: {
   width: string | number
   children: any[]

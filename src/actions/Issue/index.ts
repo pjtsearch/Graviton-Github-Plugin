@@ -61,7 +61,7 @@ const styles = styled(
 export const Issue = ({
   provider,
   open,
-  args: { number: issueNumber }
+  args: { number: issueNumber },
 }: {
   provider: any
   open: Function
@@ -99,9 +99,7 @@ export const Issue = ({
                   <${DracText}>${issue.body}</${DracText}>
                 </${DracCard}>
                 `
-                  : html`
-                      <p>Loading...</p>
-                    `
+                  : html` <p>Loading...</p> `
               }
               ${
                 comments.length
@@ -115,9 +113,7 @@ export const Issue = ({
                 </${DracCard}>
                 `
                     )
-                  : html`
-                      Loading...
-                    `
+                  : html` Loading... `
               }
             </div>
             <div id="input-box">

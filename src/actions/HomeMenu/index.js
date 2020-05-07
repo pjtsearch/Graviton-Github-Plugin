@@ -10,7 +10,7 @@ import {
   useLayoutEffect,
   useReducer,
   useRef,
-  useContext
+  useContext,
 } from "haunted"
 import "../../components/DracButton"
 import "../../components/DracText"
@@ -29,7 +29,7 @@ const component = ({ puffin, actions }) =>
         <div>
           <d-title>Github</d-title>
           ${actions.map(
-            action => html`
+            (action) => html`
               <d-card .width=${"calc(100% - 10px)"} @click=${() => action.action()}>
                 <d-txt>${action.title}</d-txt>
               </d-card>
@@ -54,7 +54,7 @@ export const open = async ({ API, options }) => {
     { title: "Issues", action: () => Issues.open({ API, options }) },
     { title: "Config", action: () => Config.open({ API, options }) },
     { title: "UserInfo", action: () => UserInfo.open({ API, options }) },
-    { title: "PullRequests", action: () => PullRequests.open({ API, options }) }
+    { title: "PullRequests", action: () => PullRequests.open({ API, options }) },
   ]
   // API.Tab({
   //     title:"Github",
@@ -69,7 +69,7 @@ export const open = async ({ API, options }) => {
     component: comp,
     id: "github-home-menu",
     API,
-    options
+    options,
   })
   // render()
 }

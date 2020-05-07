@@ -3,10 +3,10 @@ import Github from "./providers/github/index.js"
 import * as commandPrompt from "./triggers/commandPrompt"
 import * as statusBar from "./triggers/statusBar"
 import * as sidePanel from "./triggers/sidePanel"
-export const entry = async API => {
+export const entry = async (API) => {
   API.Notification({
     title: "Github",
-    content: "Github started"
+    content: "Github started",
   })
   // console.log(API.SidePanel)
   var options = { panel: null }

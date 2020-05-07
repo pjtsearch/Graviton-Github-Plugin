@@ -8,6 +8,6 @@ export const register = ({ API, options }) => {
       panels.toggle({ API, options })
     },
     component: () => API.puffin.element`<span>Github</span>`,
-    position: "right"
+    position: "right",
   })
 }
