@@ -1,13 +1,13 @@
-import { createPreactComponent } from "./utilities/createComponent"
-import getProvider from "./utilities/getProvider"
+import { createPreactComponent } from "../../utilities/createComponent"
+import getProvider from "../../utilities/getProvider"
 import { Component } from "preact"
 import { html } from "htm/preact"
 import { useState, useEffect } from "preact/hooks"
 
-import { UserInfo, Issues, Issue } from "./actions/index"
-import { DracButton } from "./components/index"
+import { UserInfo, Issues, Issue } from "../index"
 
-import { PageHistory, Page } from "./utilities/PageHistory"
+import { PageHistory, Page } from "../../utilities/PageHistory"
+import {SidePanelMenu} from "./SidePanelMenu"
 
 const Comp = ({ API }: { API: { RunningConfig: any } }) => {
   const pages: { [key: string]: (...args: any) => preact.VNode<{}> } = {
@@ -24,6 +24,10 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
       $pageArgs(page.args)
     })
   )
+  const [menuItems] = useState([
+    {name:"User Info",onClick:()=>hist.pushState({ page: "UserInfo", args: {} })},
+    {name:"Issues",onClick:()=>hist.pushState({ page: "Issues", args: {} })},
+  ])
 
   useEffect(() => {
     hist.pushState({ page: "UserInfo", args: {} })
@@ -35,15 +39,11 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
 
   return html`
     <div>
-      ${Object.entries(pages).map(
-        ([name]) => html`
-        <${DracButton} onClick=${() => hist.pushState({ page: name, args: {} })}>${name}</${DracButton}>
-      `
-      )}
+      <${SidePanelMenu} items=${menuItems}></${SidePanelMenu}>
       ${page && provider && html` <${pages[page]} provider=${provider} hist=${hist} args=${pageArgs} /> `}
     </div>
   `
 }
 
-export const GithubPlugin = ({ API }: { API: { RunningConfig: any; puffin: any } }) =>
+export const SidePanel = ({ API }: { API: { RunningConfig: any; puffin: any } }) =>
   createPreactComponent(html` <${Comp} API=${API} /> `, API.puffin)

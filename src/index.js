@@ -2,7 +2,7 @@
 import Github from "./providers/github/index.js"
 import * as commandPrompt from "./triggers/commandPrompt"
 import * as statusBar from "./triggers/statusBar"
-import * as sidePanel from "./triggers/sidePanel"
+import * as sidePanel from "./triggers/sidePanel.ts"
 export const entry = async (API) => {
   API.Notification({
     title: "Github",

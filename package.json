@@ -1,7 +1,7 @@
 {
   "name": "github",
   "id": "github-plugin",
-  "version": "0.8.6",
+  "version": "0.8.7",
   "description": "Github plugin for Graviton",
   "mainDev": "dist/index.js",
   "main": "index.js",
