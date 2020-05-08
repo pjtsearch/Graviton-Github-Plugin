@@ -4,6 +4,7 @@ import { html } from "htm/preact"
 import { DracText, DracCard, DracInput, DracTitle, DracButton } from "../../components/index"
 import styled from "preact-css-styled"
 import { PageHistory } from "../../utilities/PageHistory"
+import {Markdown} from "../../components/Markdown"
 
 const styles = styled(
   "div",
@@ -97,7 +98,7 @@ export const Issue = ({
                   <img height="20" src=${issue.creator.avatar}/>
                   <${DracText} inline=${true}>${issue.creator.login}</${DracText}>
                   <br/>
-                  <${DracText}>${issue.body}</${DracText}>
+                  <${Markdown} text=${issue.body}></${Markdown}>
                 </${DracCard}>
                 `
                   : html` <p>Loading...</p> `
@@ -110,7 +111,7 @@ export const Issue = ({
                   <img height="20" src=${comment.creator.avatar}/>
                   <${DracText} inline=${true}>${comment.creator.login}</${DracText}>
                   <br/>
-                  <${DracText}>${comment.body}</${DracText}>
+                  <${Markdown} text=${comment.body}></${Markdown}>
                 </${DracCard}>
                 `
                     )
