@@ -90,6 +90,7 @@ export const Issue = ({
   return html`
         <${styles} id="issue">
             <div id="issue-wrapper">
+              <${DracButton} onClick=${()=>hist?.back()}>Back</${DracButton}>
               ${
                 issue.title
                   ? html`
