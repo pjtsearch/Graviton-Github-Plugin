@@ -7,7 +7,7 @@ import { useState, useEffect } from "preact/hooks"
 import { UserInfo, Issues, Issue } from "../index"
 
 import { PageHistory, Page } from "../../utilities/PageHistory"
-import {SidePanelMenu} from "./SidePanelMenu"
+import { SidePanelMenu } from "./SidePanelMenu"
 
 const Comp = ({ API }: { API: { RunningConfig: any } }) => {
   const pages: { [key: string]: (...args: any) => preact.VNode<{}> } = {
@@ -25,8 +25,8 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
     })
   )
   const [menuItems] = useState([
-    {name:"User Info",onClick:()=>hist.pushState({ page: "UserInfo", args: {} })},
-    {name:"Issues",onClick:()=>hist.pushState({ page: "Issues", args: {} })},
+    { name: "User Info", onClick: () => hist.pushState({ page: "UserInfo", args: {} }) },
+    { name: "Issues", onClick: () => hist.pushState({ page: "Issues", args: {} }) },
   ])
 
   useEffect(() => {

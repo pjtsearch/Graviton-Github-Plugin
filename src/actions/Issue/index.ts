@@ -4,7 +4,7 @@ import { html } from "htm/preact"
 import { DracText, DracCard, DracInput, DracTitle, DracButton } from "../../components/index"
 import styled from "preact-css-styled"
 import { PageHistory } from "../../utilities/PageHistory"
-import {Markdown} from "../../components/Markdown"
+import { Markdown } from "../../components/Markdown"
 
 const styles = styled(
   "div",
@@ -90,7 +90,7 @@ export const Issue = ({
   return html`
         <${styles} id="issue">
             <div id="issue-wrapper">
-              <${DracButton} onClick=${()=>hist?.back()}>Back</${DracButton}>
+              <${DracButton} onClick=${() => hist?.back()}>Back</${DracButton}>
               ${
                 issue.title
                   ? html`
