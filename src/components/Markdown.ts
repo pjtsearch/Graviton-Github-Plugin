@@ -1,6 +1,7 @@
 import { useState, useEffect } from "preact/hooks"
 import { html } from "htm/preact"
 import marked from 'marked';
+import DOMPurify from 'dompurify';
 
 export const Markdown = ({text}:{text:any})=>{
     useEffect(()=>{
@@ -8,12 +9,11 @@ export const Markdown = ({text}:{text:any})=>{
             gfm: true,
             breaks: false,
             pedantic: false,
-            sanitize: true,
             smartLists: true,
             smartypants: false
           });      
     },[])
-    const [res] = useState(marked(text || ''));
+    const [res] = useState(DOMPurify.sanitize(marked(text || '')));
 
     return html`
     <div>
