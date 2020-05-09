@@ -6,7 +6,7 @@ import copy from 'rollup-plugin-copy'
 //import babel from 'rollup-plugin-babel';
 
 export default {
-  input: 'src/index.js',
+  input: 'src/index.ts',
   output: {
     dir: 'release',
     format: 'cjs'
