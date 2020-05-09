@@ -103,7 +103,6 @@ export const Issue = ({
     console.log(await provider.createComment({ issueNumber, body }))
     await update()
   }
-  //FIXME: what if there are no comments, but is fully loaded?
   return html`
         <${styles} id="issue">
             <div id="issue-wrapper">
