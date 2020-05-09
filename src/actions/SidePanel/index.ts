@@ -12,6 +12,17 @@ import { SidePanelMenu } from "./SidePanelMenu"
 import AccountOutlineIcon from "mdi-preact/AccountOutlineIcon"
 import AlertCircleOutlineIcon from "mdi-preact/AlertCircleOutlineIcon"
 import SourcePullIcon from "mdi-preact/SourcePullIcon"
+import styled from "preact-css-styled"
+
+const pageWrapper = styled(
+  "div",
+  `
+{
+  height: calc(100% - 54px);
+  overflow:auto;
+}
+`
+)
 
 const Comp = ({ API }: { API: { RunningConfig: any } }) => {
   const pages: { [key: string]: (...args: any) => preact.VNode<{}> } = {
@@ -53,7 +64,9 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
   return html`
     <div>
       <${SidePanelMenu} items=${menuItems}></${SidePanelMenu}>
-      ${page && provider && html` <${pages[page]} API=${API} provider=${provider} hist=${hist} args=${pageArgs} /> `}
+      <${pageWrapper}>
+        ${page && provider && html` <${pages[page]} API=${API} provider=${provider} hist=${hist} args=${pageArgs} /> `}
+      </${pageWrapper}>
     </div>
   `
 }
