@@ -30,7 +30,7 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
     UserInfo,
     Issues,
     Issue,
-    Config
+    Config,
   }
   const [page, $page] = useState("")
   const [pageArgs, $pageArgs] = useState({})
@@ -65,11 +65,11 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
     hist.pushState({ page: "UserInfo", args: {} })
     API.RunningConfig.on("addFolderToRunningWorkspace", async () => {
       $loading(true)
-      try{
+      try {
         const p = await getProvider({ API })
         $provider(p)
-      }catch(err){
-        hist.pushState({ page: "Config", args: {$provider} })
+      } catch (err) {
+        hist.pushState({ page: "Config", args: { $provider } })
       }
       $loading(false)
     })
