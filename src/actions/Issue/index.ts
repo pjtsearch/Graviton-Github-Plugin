@@ -62,16 +62,6 @@ const styles = styled(
 `
 )
 
-const issueTitleWrapper = styled(
-  "div",
-  `
-  {
-    display:grid;
-    grid-template-columns:auto auto;
-  }
-`
-)
-
 export const Issue = ({
   provider,
   hist,
@@ -105,12 +95,7 @@ export const Issue = ({
               ${
                 issue.title
                   ? html`
-                <${issueTitleWrapper}>
-                  <${DracButton} onClick=${() => hist?.back()} style=${{
-                      display: "inline",
-                    }}><${ArrowLeftIcon}/></${DracButton}>
-                  <${DracTitle} style=${{ display: "inline" }} level=${2}>${issue.title}</${DracTitle}>
-                </${issueTitleWrapper}>
+                <${DracTitle} style=${{ display: "inline" }} level=${2}>${issue.title}</${DracTitle}>
                 <${DracCard} width=${"calc(100% - 10px)"}>
                   <img height="20" src=${issue.creator.avatar}/>
                   <${DracText} inline=${true}>${issue.creator.login}</${DracText}>
