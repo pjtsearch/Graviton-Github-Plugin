@@ -44,10 +44,9 @@
   "scripts": {
     "build": "rollup --config ./rollup.config.js",
     "watch": "rollup --config ./rollup.config.js --watch",
-    "release": "rollup --config ./rollup.config.release.js",
+    "release": "standard-version; rollup --config ./rollup.config.release.js",
     "types": "tsc --noEmit",
-    "format": "prettier --write --no-semi --print-width 120 \"src/**/*.js\";prettier --write --no-semi --print-width 120 \"src/**/*.ts\"",
-    "bump": "standard-version"
+    "format": "prettier --write --no-semi --print-width 120 \"src/**/*.js\";prettier --write --no-semi --print-width 120 \"src/**/*.ts\""
   },
   "husky": {
     "hooks": {
