@@ -11,6 +11,7 @@ import { SidePanelMenu } from "./SidePanelMenu"
 
 import AccountOutlineIcon from "mdi-preact/AccountOutlineIcon"
 import AlertCircleOutlineIcon from "mdi-preact/AlertCircleOutlineIcon"
+import SourcePullIcon from "mdi-preact/SourcePullIcon"
 
 const Comp = ({ API }: { API: { RunningConfig: any } }) => {
   const pages: { [key: string]: (...args: any) => preact.VNode<{}> } = {
@@ -29,7 +30,16 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
   )
   const [menuItems] = useState([
     { name: "User Info", onClick: () => hist.pushState({ page: "UserInfo", args: {} }), icon: AccountOutlineIcon },
-    { name: "Issues", onClick: () => hist.pushState({ page: "Issues", args: {} }), icon: AlertCircleOutlineIcon },
+    {
+      name: "Issues",
+      onClick: () => hist.pushState({ page: "Issues", args: { pr: false } }),
+      icon: AlertCircleOutlineIcon,
+    },
+    {
+      name: "Pull Requests",
+      onClick: () => hist.pushState({ page: "Issues", args: { pr: true } }),
+      icon: SourcePullIcon,
+    },
   ])
 
   useEffect(() => {

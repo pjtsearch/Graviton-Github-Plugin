@@ -65,19 +65,25 @@ const styles = styled(
 export const Issue = ({
   provider,
   hist,
-  args: { number: issueNumber },
+  args: { number: issueNumber, pr },
 }: {
   provider: any
   hist?: PageHistory
   args?: any
+  pr: boolean
 }) => {
   let [comments, $comments]: any[] = useState([])
   let [issue, $issue]: any[] = useState({})
   let [comment, $comment] = useState("")
 
   const update = async () => {
-    $issue(await provider.getIssue({ issueNumber }))
-    $comments(await provider.getIssueComments({ issueNumber }))
+    if (!pr) {
+      $issue(await provider.getIssue({ issueNumber }))
+      $comments(await provider.getIssueComments({ issueNumber }))
+    } else if (pr) {
+      $issue(await provider.getPullRequest({ prNumber: issueNumber }))
+      $comments(await provider.getPullRequestComments({ prNumber: issueNumber }))
+    }
   }
 
   useEffect(() => {

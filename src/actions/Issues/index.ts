@@ -16,18 +16,32 @@ import { Issue } from "../Issue/index"
 // }
 // `
 //FIXME: add provider type
-export const Issues = ({ API, provider, hist, args }: { API: any; provider: any; hist: PageHistory; args?: any }) => {
+export const Issues = ({
+  API,
+  provider,
+  hist,
+  args: { pr },
+}: {
+  API: any
+  provider: any
+  hist: PageHistory
+  args?: any
+}) => {
   //FIXME: add type
   let [issues, $issues]: any[] = useState([])
   useEffect(() => {
     ;(async () => {
-      $issues(await provider.getIssues())
+      if (!pr) {
+        $issues(await provider.getIssues())
+      } else if (pr) {
+        $issues(await provider.getPullRequests())
+      }
     })()
-  }, [])
+  }, [pr])
 
   return html`
         <div>
-            <${DracTitle} level=${2}>Issues</${DracTitle}>
+            <${DracTitle} level=${2}>${pr ? "Pull Requests" : "Issues"}</${DracTitle}>
             ${
               issues.length
                 ? issues.map(
@@ -38,7 +52,7 @@ export const Issues = ({ API, provider, hist, args }: { API: any; provider: any;
                         comp: Issue,
                         title: `#${issue.number}`,
                         provider,
-                        pageArgs: { number: issue.number },
+                        pageArgs: { number: issue.number, pr },
                         id: `github-issue-${issue.number}`,
                       })}>
               <${DracText}>${issue.title}</${DracText}>
