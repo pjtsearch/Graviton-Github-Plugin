@@ -4,18 +4,15 @@ Github plugin for Graviton editor
 ## Current Features:
 * View your user info
 * View issues and comment on issues
+* View pull requests and comment on pull requests
 
 ## Setup
 1. Create a Personal Access Token on your Github account
 2. Open Config for the plugin, and put the token in the "Auth" text input
 
 ## Usage
-1. Commands in command prompt:
-  * github user-info: opens User Info tab
-  * github config: opens Github Plugin config window
-  * github issues: opens issues tab
-2. Status Bar Button
-  * Click on "Github" in the bottom bar
+1. Side Bar Button
+  * Click on the Github icon in the side bar
 
 ## Contributing
 Development is done in the ```dev``` branch.
