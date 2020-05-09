@@ -9,6 +9,9 @@ import { UserInfo, Issues, Issue } from "../index"
 import { PageHistory, Page } from "../../utilities/PageHistory"
 import { SidePanelMenu } from "./SidePanelMenu"
 
+import AccountOutlineIcon from "mdi-preact/AccountOutlineIcon"
+import AlertCircleOutlineIcon from "mdi-preact/AlertCircleOutlineIcon"
+
 const Comp = ({ API }: { API: { RunningConfig: any } }) => {
   const pages: { [key: string]: (...args: any) => preact.VNode<{}> } = {
     UserInfo,
@@ -25,8 +28,8 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
     })
   )
   const [menuItems] = useState([
-    { name: "User Info", onClick: () => hist.pushState({ page: "UserInfo", args: {} }) },
-    { name: "Issues", onClick: () => hist.pushState({ page: "Issues", args: {} }) },
+    { name: "User Info", onClick: () => hist.pushState({ page: "UserInfo", args: {} }), icon: AccountOutlineIcon },
+    { name: "Issues", onClick: () => hist.pushState({ page: "Issues", args: {} }), icon: AlertCircleOutlineIcon },
   ])
 
   useEffect(() => {

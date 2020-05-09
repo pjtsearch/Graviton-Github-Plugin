@@ -6,6 +6,8 @@ import styled from "preact-css-styled"
 import { PageHistory } from "../../utilities/PageHistory"
 import { Markdown } from "../../components/Markdown"
 
+import ArrowLeftIcon from "mdi-preact/ArrowLeftIcon"
+
 const styles = styled(
   "div",
   `
@@ -35,7 +37,7 @@ const styles = styled(
 }
 #issue-wrapper{
   overflow:auto;
-  height: calc(100% - 46px);
+  height: calc(100% - 54px);
   padding-bottom:50px;
   box-sizing: border-box;
 }
@@ -57,6 +59,16 @@ const styles = styled(
 }
 :host ::-webkit-scrollbar-track {
 }
+`
+)
+
+const issueTitleWrapper = styled(
+  "div",
+  `
+  {
+    display:grid;
+    grid-template-columns:auto auto;
+  }
 `
 )
 
@@ -90,11 +102,15 @@ export const Issue = ({
   return html`
         <${styles} id="issue">
             <div id="issue-wrapper">
-              <${DracButton} onClick=${() => hist?.back()}>Back</${DracButton}>
               ${
                 issue.title
                   ? html`
-                <${DracTitle} level=${2}>${issue.title}</${DracTitle}>
+                <${issueTitleWrapper}>
+                  <${DracButton} onClick=${() => hist?.back()} style=${{
+                      display: "inline",
+                    }}><${ArrowLeftIcon}/></${DracButton}>
+                  <${DracTitle} style=${{ display: "inline" }} level=${2}>${issue.title}</${DracTitle}>
+                </${issueTitleWrapper}>
                 <${DracCard} width=${"calc(100% - 10px)"}>
                   <img height="20" src=${issue.creator.avatar}/>
                   <${DracText} inline=${true}>${issue.creator.login}</${DracText}>
