@@ -37,7 +37,7 @@ const styles = styled(
 }
 #issue-wrapper{
   overflow:auto;
-  height: calc(100% - 54px);
+  height: calc(100% - 0px);
   padding-bottom:50px;
   box-sizing: border-box;
 }

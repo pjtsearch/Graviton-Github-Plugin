@@ -43,7 +43,7 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
   return html`
     <div>
       <${SidePanelMenu} items=${menuItems}></${SidePanelMenu}>
-      ${page && provider && html` <${pages[page]} provider=${provider} hist=${hist} args=${pageArgs} /> `}
+      ${page && provider && html` <${pages[page]} API=${API} provider=${provider} hist=${hist} args=${pageArgs} /> `}
     </div>
   `
 }

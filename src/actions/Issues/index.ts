@@ -7,6 +7,8 @@ import { html } from "htm/preact"
 
 import { DracText, DracCard, DracTitle } from "../../components/index"
 import { PageHistory } from "../../utilities/PageHistory"
+import { openTab } from "../../utilities/openTab"
+import { Issue } from "../Issue/index"
 
 // const styles = (vars?) => `
 // :host{
@@ -14,7 +16,7 @@ import { PageHistory } from "../../utilities/PageHistory"
 // }
 // `
 //FIXME: add provider type
-export const Issues = ({ provider, hist, args }: { provider: any; hist: PageHistory; args?: any }) => {
+export const Issues = ({ API, provider, hist, args }: { API: any; provider: any; hist: PageHistory; args?: any }) => {
   //FIXME: add type
   let [issues, $issues]: any[] = useState([])
   useEffect(() => {
@@ -31,7 +33,14 @@ export const Issues = ({ provider, hist, args }: { provider: any; hist: PageHist
                 ? issues.map(
                     (issue: any) => html`
             <${DracCard} width=${"calc(100% - 10px)"} onclick=${() =>
-                      hist.pushState({ page: "Issue", args: { number: issue.number } })}>
+                      openTab({
+                        API,
+                        comp: Issue,
+                        title: `#${issue.number}`,
+                        provider,
+                        pageArgs: { number: issue.number },
+                        id: `github-issue-${issue.number}`,
+                      })}>
               <${DracText}>${issue.title}</${DracText}>
             </${DracCard}>
             `
