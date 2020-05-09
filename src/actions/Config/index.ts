@@ -46,7 +46,7 @@ export const Config = ({
       <${DracTitle}>Config</${DracTitle}>
       <div class="field">
         <${DracText}>Auth:</${DracText}>
-        <${DracInput} onInput=${(e: any) => setForm({ ...form, auth: e.path[0].value })} value=${
+        <${DracInput} onInput=${(e: any) => setForm({ ...form, auth: e.path[0].value })} defaultValue=${
     API.StaticConfig.data.github.auth
   }/>
       </div>
