@@ -75,14 +75,23 @@ export const Issue = ({
   let [comments, $comments]: any[] = useState([])
   let [issue, $issue]: any[] = useState({})
   let [comment, $comment] = useState("")
+  let [loading, $loading]: [boolean, any] = useState(true)
 
   const update = async () => {
     if (!pr) {
-      $issue(await provider.getIssue({ issueNumber }))
-      $comments(await provider.getIssueComments({ issueNumber }))
+      $loading(true)
+      await Promise.all([
+        $issue(await provider.getIssue({ issueNumber })),
+        $comments(await provider.getIssueComments({ issueNumber })),
+      ])
+      $loading(false)
     } else if (pr) {
-      $issue(await provider.getPullRequest({ prNumber: issueNumber }))
-      $comments(await provider.getPullRequestComments({ prNumber: issueNumber }))
+      $loading(true)
+      await Promise.all([
+        $issue(await provider.getPullRequest({ prNumber: issueNumber })),
+        $comments(await provider.getPullRequestComments({ prNumber: issueNumber })),
+      ])
+      $loading(false)
     }
   }
 
@@ -99,7 +108,7 @@ export const Issue = ({
         <${styles} id="issue">
             <div id="issue-wrapper">
               ${
-                issue.title
+                !loading
                   ? html`
                 <${DracTitle} style=${{ display: "inline" }} level=${2}>${issue.title}</${DracTitle}>
                 <${DracCard} width=${"calc(100% - 10px)"}>
@@ -109,21 +118,21 @@ export const Issue = ({
                   <${Markdown} text=${issue.body}></${Markdown}>
                 </${DracCard}>
                 `
-                  : html` <p>Loading...</p> `
+                  : html` <${DracText}>Loading...</${DracText}> `
               }
               ${
-                comments.length
+                !loading
                   ? comments.map(
                       (comment: any) => html`
-                <${DracCard} width=${"calc(100% - 10px)"}>
-                  <img height="20" src=${comment.creator.avatar}/>
-                  <${DracText} inline=${true}>${comment.creator.login}</${DracText}>
-                  <br/>
-                  <${Markdown} text=${comment.body}></${Markdown}>
-                </${DracCard}>
-                `
+                      <${DracCard} width=${"calc(100% - 10px)"}>
+                        <img height="20" src=${comment.creator.avatar}/>
+                        <${DracText} inline=${true}>${comment.creator.login}</${DracText}>
+                        <br/>
+                        <${Markdown} text=${comment.body}></${Markdown}>
+                      </${DracCard}>
+                    `
                     )
-                  : html` Loading... `
+                  : null
               }
             </div>
             <div id="input-box">

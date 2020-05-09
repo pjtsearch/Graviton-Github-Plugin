@@ -29,12 +29,17 @@ export const Issues = ({
 }) => {
   //FIXME: add type
   let [issues, $issues]: any[] = useState([])
+  let [loading, $loading]: [boolean, any] = useState(true)
   useEffect(() => {
     ;(async () => {
       if (!pr) {
+        $loading(true)
         $issues(await provider.getIssues())
+        $loading(false)
       } else if (pr) {
+        $loading(true)
         $issues(await provider.getPullRequests())
+        $loading(false)
       }
     })()
   }, [pr])
@@ -43,7 +48,7 @@ export const Issues = ({
         <div>
             <${DracTitle} level=${2}>${pr ? "Pull Requests" : "Issues"}</${DracTitle}>
             ${
-              issues.length
+              !loading
                 ? issues.map(
                     (issue: any) => html`
             <${DracCard} width=${"calc(100% - 10px)"} onclick=${() =>
