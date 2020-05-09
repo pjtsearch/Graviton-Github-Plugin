@@ -38,6 +38,7 @@
     "prettier": "2.0.5",
     "rollup": "^2.4.0",
     "rollup-plugin-copy": "^3.3.0",
+    "standard-version": "^8.0.0",
     "typescript": "^3.8.3"
   },
   "scripts": {
@@ -45,11 +46,12 @@
     "watch": "rollup --config ./rollup.config.js --watch",
     "release": "rollup --config ./rollup.config.release.js",
     "types": "tsc --noEmit",
-    "format": "prettier --write --no-semi --print-width 120 \"src/**/*.js\";prettier --write --no-semi --print-width 120 \"src/**/*.ts\""
+    "format": "prettier --write --no-semi --print-width 120 \"src/**/*.js\";prettier --write --no-semi --print-width 120 \"src/**/*.ts\"",
+    "version":"standard-version"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn format"
+      "pre-commit": "yarn format; yarn version"
     }
   },
   "alias": {
