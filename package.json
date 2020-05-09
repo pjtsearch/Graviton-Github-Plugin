@@ -47,11 +47,12 @@
     "release": "rollup --config ./rollup.config.release.js",
     "types": "tsc --noEmit",
     "format": "prettier --write --no-semi --print-width 120 \"src/**/*.js\";prettier --write --no-semi --print-width 120 \"src/**/*.ts\"",
-    "version":"standard-version"
+    "bump": "standard-version -a"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn format; yarn version"
+      "pre-commit": "yarn format",
+      "pre-push": "yarn bump"
     }
   },
   "alias": {
