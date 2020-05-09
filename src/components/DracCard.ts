@@ -1,11 +1,10 @@
-import {
-    html,
-    component,
-    useLayoutEffect,
-  } from 'haunted';
+import styled from "preact-css-styled"
+import { html } from "htm/preact"
 
-  const styles = vars => `
-div{
+const styles = styled(
+  "div",
+  `
+{
     --font:Montserrat, sans-serif;
     --accentColor:#0066FF;
     --cardBackground:#EFEFEF;
@@ -29,33 +28,42 @@ div{
     display:inline-block;
     overflow:auto;
 }
-div:hover:not(:active){
+:host:hover:not(:active){
     cursor:pointer;
     transition:0.1s;
     box-shadow:0px 1px 5px 2px rgba(0,0,0,.05) ,0 0 0 0px var(--puffinAccent,var(--accentColor));
 }
-div:active{
+:host:active{
     border:0;
     outline:0;
     box-sizing: border-box;
     box-shadow:0px 1px 5px 3px rgba(0,0,0,.05) ,0 0 0 3px var(--puffinAccent,var(--accentColor));
 }
-div.active{
+:host.active{
     border:0;
     outline:0;
     box-sizing: border-box;
     box-shadow:0px 1px 5px 3px rgba(0,0,0,.05) ,0 0 0 3px var(--puffinAccent,var(--accentColor));
 }
-div.disabled{
+:host.disabled{
     pointer-events: none;
     background:var(--puffinDisabledColor,var(--disabledColor));
 }
-  `
-  customElements.define("d-card", component(({width="auto"})=>{
-      return html`
-        <style>${styles()}</style>
-        <div style="${`width:${width};`}">
-          <slot></slot>
-        </div>
-      `
-  },{useShadowDOM:true}));
+`
+)
+
+export const DracCard = ({
+  width = "auto",
+  children,
+  onclick,
+}: {
+  width: string | number
+  children: any[]
+  onclick?: Function
+}) => {
+  return html`
+      <${styles} style="${`width:${width};`}" onclick=${() => (onclick ? onclick() : null)}>
+        ${children}
+      </${styles}>
+    `
+}
