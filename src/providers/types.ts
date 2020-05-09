@@ -32,3 +32,22 @@ export interface Label {
   color: string
   description: string
 }
+
+export interface Comment {
+  url: string
+  id: number
+  altId: string
+  creator: User
+  createdDate: Date
+  updatedDate: Date
+  body: string
+}
+
+export interface Team {
+  url: string
+  id: number
+  altId: string
+  name: string
+  slug: string
+  description: string
+}

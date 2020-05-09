@@ -181,7 +181,7 @@ class Github implements Provider {
       description: label.description,
     }
   }
-  private parseComment(comment: githubTypes.Comment) {
+  private parseComment(comment: githubTypes.Comment): types.Comment {
     return {
       url: comment.html_url,
       id: comment.id,
@@ -192,7 +192,7 @@ class Github implements Provider {
       body: comment.body,
     }
   }
-  private parseTeam(team: githubTypes.Team) {
+  private parseTeam(team: githubTypes.Team): types.Team {
     return {
       url: team.html_url,
       id: team.id,
