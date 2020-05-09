@@ -1,6 +1,4 @@
 import Github from "../providers/github/index.ts"
-// FIXME: add again
-// import * as Config from "../actions/Config"
 import parseGHUrl from "parse-github-url"
 import * as git from "isomorphic-git"
 import * as fs from "fs"
@@ -18,8 +16,6 @@ export default async ({ API }) => {
       title: "Github Plugin: No authentification provided",
       content: "Opening config",
     })
-    // FIXME: add again
-    // Config.open({API})
     throw new Error("Github Plugin: No authentification provided")
     // return
   }

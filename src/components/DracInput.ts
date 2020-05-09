@@ -18,6 +18,6 @@ const styles = styled(
   `
 )
 
-export const DracInput = ({ height = "auto", onInput = (e: any) => {} }) => {
-  return html` <${styles} style=${`height:${height}`} onInput=${(e: any) => onInput(e)} /> `
+export const DracInput = ({ height = "auto", onInput = (e: any) => {}, value="" }) => {
+  return html` <${styles} style=${`height:${height}`} onInput=${(e: any) => onInput(e)} value=${value} /> `
 }

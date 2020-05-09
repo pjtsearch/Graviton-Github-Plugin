@@ -4,7 +4,7 @@ import { Component } from "preact"
 import { html } from "htm/preact"
 import { useState, useEffect } from "preact/hooks"
 
-import { UserInfo, Issues, Issue } from "../index"
+import { UserInfo, Issues, Issue, Config } from "../index"
 
 import { PageHistory, Page } from "../../utilities/PageHistory"
 import { SidePanelMenu } from "./SidePanelMenu"
@@ -12,6 +12,7 @@ import { SidePanelMenu } from "./SidePanelMenu"
 import AccountOutlineIcon from "mdi-preact/AccountOutlineIcon"
 import AlertCircleOutlineIcon from "mdi-preact/AlertCircleOutlineIcon"
 import SourcePullIcon from "mdi-preact/SourcePullIcon"
+import SettingsOutlineIcon from "mdi-preact/SettingsOutlineIcon"
 import styled from "preact-css-styled"
 
 const pageWrapper = styled(
@@ -29,10 +30,12 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
     UserInfo,
     Issues,
     Issue,
+    Config
   }
   const [page, $page] = useState("")
   const [pageArgs, $pageArgs] = useState({})
   const [provider, $provider] = useState(null)
+  let [loading, $loading]: [boolean, any] = useState(true)
   let [hist, $hist] = useState(
     new PageHistory((page: Page) => {
       $page(page.page)
@@ -51,13 +54,24 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
       onClick: () => hist.pushState({ page: "Issues", args: { pr: true } }),
       icon: SourcePullIcon,
     },
+    {
+      name: "Config",
+      onClick: () => hist.pushState({ page: "Config", args: { $provider } }),
+      icon: SettingsOutlineIcon,
+    },
   ])
 
   useEffect(() => {
     hist.pushState({ page: "UserInfo", args: {} })
     API.RunningConfig.on("addFolderToRunningWorkspace", async () => {
-      const p = await getProvider({ API })
-      $provider(p)
+      $loading(true)
+      try{
+        const p = await getProvider({ API })
+        $provider(p)
+      }catch(err){
+        hist.pushState({ page: "Config", args: {$provider} })
+      }
+      $loading(false)
     })
   }, [])
 
@@ -65,7 +79,7 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
     <div>
       <${SidePanelMenu} items=${menuItems}></${SidePanelMenu}>
       <${pageWrapper}>
-        ${page && provider && html` <${pages[page]} API=${API} provider=${provider} hist=${hist} args=${pageArgs} /> `}
+        ${!loading && html` <${pages[page]} API=${API} provider=${provider} hist=${hist} args=${pageArgs} /> `}
       </${pageWrapper}>
     </div>
   `
