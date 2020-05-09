@@ -17,8 +17,8 @@ export const UserInfo = ({ provider, hist, args }: { provider: any; hist?: PageH
 
   return html`
     <div>
-      ${data &&
-      html`<img src="${data.avatar}"/>
+      ${data
+        ? html`<img src="${data.avatar}"/>
             <${DracText}>Name: ${data.name}</${DracText}>
             <${DracText}>Login: ${data.login}</${DracText}>
             <${DracText}>Company: ${data.company}</${DracText}>
@@ -30,7 +30,8 @@ export const UserInfo = ({ provider, hist, args }: { provider: any; hist?: PageH
             <${DracText}>Public Repositories: ${data.publicRepos}</${DracText}>
             <${DracText}>Private Repositories: ${data.privateRepos}</${DracText}>
             <${DracText}>Disk Usage: ${data.diskUsage}</${DracText}>
-            <${DracText}>Plan: ${data.plan}</${DracText}>`}
+            <${DracText}>Plan: ${data.plan}</${DracText}>`
+        : html` <${DracText}>Loading...</${DracText}> `}
     </div>
   `
 }
