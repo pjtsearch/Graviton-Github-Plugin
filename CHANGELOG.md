@@ -2,11 +2,9 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [0.11.6](https://github.com/pjtsearch/Graviton-Github-Plugin/compare/v0.11.5...v0.11.6) (2020-05-09)
-
-### [0.11.5](https://github.com/pjtsearch/Graviton-Github-Plugin/compare/v0.11.4...v0.11.5) (2020-05-09)
+### [0.11.7](https://github.com/pjtsearch/Graviton-Github-Plugin/compare/v0.11.6...v0.11.7) (2020-05-09)
 
 
 ### Bug Fixes
 
-* fix version hook ([74d9f06](https://github.com/pjtsearch/Graviton-Github-Plugin/commit/74d9f06a4d6aba4384cd6539952191acd5517861))
+* remove version hook ([d425034](https://github.com/pjtsearch/Graviton-Github-Plugin/commit/d4250348d00ed490849802a9c9e7034fb9674a16))
