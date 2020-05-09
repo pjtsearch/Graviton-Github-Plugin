@@ -34,7 +34,7 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
   }
   const [page, $page] = useState("")
   const [pageArgs, $pageArgs] = useState({})
-  const [provider, $provider] = useState(null)
+  const [provider, $provider]: [any, any] = useState(null)
   let [loading, $loading]: [boolean, any] = useState(true)
   let [hist, $hist] = useState(
     new PageHistory((page: Page) => {
