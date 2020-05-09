@@ -1,7 +1,9 @@
 import { Octokit } from "@octokit/rest"
 import * as githubTypes from "./types"
+import * as types from "../types"
+import { Provider } from "../Provider"
 //FIXME: add types for everything
-class Github {
+class Github implements Provider {
   octokit: Octokit = new Octokit()
   dir: string = ""
   repo: { owner: string; repo: string }
@@ -102,7 +104,7 @@ class Github {
     })
     return raw
   }
-  private parseIssue(issue: githubTypes.Issue) {
+  private parseIssue(issue: githubTypes.Issue): types.Issue {
     return {
       title: issue.title,
       id: issue.id,
@@ -161,7 +163,7 @@ class Github {
       },
     }
   }
-  private parseUser(user: githubTypes.User) {
+  private parseUser(user: githubTypes.User): types.User {
     return {
       login: user.login,
       id: user.id,
@@ -170,7 +172,7 @@ class Github {
       url: user.html_url,
     }
   }
-  private parseLabel(label: githubTypes.Label) {
+  private parseLabel(label: githubTypes.Label): types.Label {
     return {
       name: label.name,
       id: label.id,
