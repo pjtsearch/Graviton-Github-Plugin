@@ -9,6 +9,10 @@ import styled from "preact-css-styled"
 const highlightContainer = styled(
   "div",
   `
+
+  table {
+    color: var(--puffinTextColor,var(--textColor));
+  }
 /*
  * Visual Studio 2015 dark style
  * Author: Nicolas LLOBERA <nllobera@gmail.com>
