@@ -16,7 +16,7 @@ const styles = styled(
     min-height:30px;
     min-width:30px;
     /*max-width:300px;*/
-    max-height:300px;
+    /*max-height:300px;*/
     background:var(--puffinCardBackground,var(--cardBackground));
     border:0;
     outline:0;
