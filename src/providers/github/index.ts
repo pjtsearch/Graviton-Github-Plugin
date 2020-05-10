@@ -1,7 +1,9 @@
 import { Octokit } from "@octokit/rest"
-
+import * as githubTypes from "./types"
+import * as types from "../types"
+import { Provider } from "../Provider"
 //FIXME: add types for everything
-class Github {
+class Github implements Provider {
   octokit: Octokit = new Octokit()
   dir: string = ""
   repo: { owner: string; repo: string }
@@ -17,7 +19,7 @@ class Github {
   }
   async getUserInfo() {
     const { data: raw } = await this.octokit.request("/user")
-    var data = {
+    return {
       login: raw.login,
       avatar: raw.avatar_url,
       name: raw.name,
@@ -32,7 +34,6 @@ class Github {
       privateRepos: raw.total_private_repos,
       plan: raw.plan.name,
     }
-    return data
   }
   async getIssues() {
     const { data: raw } = await this.octokit.issues.listForRepo({
@@ -102,23 +103,7 @@ class Github {
     })
     return raw
   }
-  private parseIssue(issue: {
-    title: string
-    id: number
-    node_id: string
-    number: number
-    user: any
-    labels: any
-    state: string
-    locked: boolean
-    assignees: any
-    milestone: any
-    comments: number
-    created_at: string
-    updated_at: string
-    closed_at: string | null
-    body: string
-  }) {
+  private parseIssue(issue: githubTypes.Issue): types.Issue {
     return {
       title: issue.title,
       id: issue.id,
@@ -138,30 +123,7 @@ class Github {
       body: issue.body,
     }
   }
-  private parsePullRequest(pr: {
-    title: string
-    id: number
-    node_id: string
-    number: number
-    user: any
-    labels: any
-    state: string
-    locked: boolean
-    assignees: any
-    milestone: any
-    created_at: string
-    updated_at: string
-    closed_at: string | null
-    merged_at: string | null
-    merge_commit_sha: string | null
-    body: string
-    html_url: string
-    diff_url: string
-    requested_reviewers: any
-    requested_teams: any
-    head: any
-    base: any
-  }) {
+  private parsePullRequest(pr: githubTypes.PullRequest): types.PullRequest {
     return {
       title: pr.title,
       id: pr.id,
@@ -200,7 +162,7 @@ class Github {
       },
     }
   }
-  private parseUser(user: { login: string; id: number; node_id: string; avatar_url: string; html_url: string }) {
+  private parseUser(user: githubTypes.User): types.User {
     return {
       login: user.login,
       id: user.id,
@@ -209,14 +171,7 @@ class Github {
       url: user.html_url,
     }
   }
-  private parseLabel(label: {
-    id: number
-    node_id: string
-    name: string
-    color: string
-    default: boolean
-    description: string
-  }) {
+  private parseLabel(label: githubTypes.Label): types.Label {
     return {
       name: label.name,
       id: label.id,
@@ -225,15 +180,7 @@ class Github {
       description: label.description,
     }
   }
-  private parseComment(comment: {
-    html_url: string
-    id: number
-    node_id: string
-    user: any
-    created_at: string
-    updated_at: string
-    body: string
-  }) {
+  private parseComment(comment: githubTypes.Comment): types.Comment {
     return {
       url: comment.html_url,
       id: comment.id,
@@ -244,14 +191,7 @@ class Github {
       body: comment.body,
     }
   }
-  private parseTeam(team: {
-    id: number
-    node_id: string
-    html_url: string
-    name: string
-    slug: string
-    description: string
-  }) {
+  private parseTeam(team: githubTypes.Team): types.Team {
     return {
       url: team.html_url,
       id: team.id,
@@ -261,45 +201,7 @@ class Github {
       description: team.description,
     }
   }
-  private parseRepo(r: {
-    id: number
-    node_id: string
-    name: string
-    full_name: string
-    owner: any
-    private: boolean
-    html_url: string
-    description: string
-    fork: boolean
-    git_url: string
-    ssh_url: string
-    clone_url: string
-    mirror_url: string
-    homepage: string
-    language: string | null
-    forks_count: number
-    stargazers_count: number
-    watchers_count: number
-    size: number
-    default_branch: string
-    open_issues_count: number
-    topics: string[]
-    has_issues: boolean
-    has_projects: boolean
-    has_wiki: boolean
-    has_pages: boolean
-    has_downloads: boolean
-    archived: boolean
-    disabled: boolean
-    visibility: string
-    pushed_at: string | null
-    created_at: string
-    updated_at: string
-    allow_rebase_merge: boolean
-    allow_squash_merge: boolean
-    allow_merge_commit: boolean
-    temp_clone_token: string
-  }) {
+  private parseRepo(r: githubTypes.Repo): types.Repo {
     return {
       id: r.id,
       altId: r.node_id,
