@@ -19,7 +19,7 @@ class Github implements Provider {
   }
   async getUserInfo() {
     const { data: raw } = await this.octokit.request("/user")
-    var data = {
+    return {
       login: raw.login,
       avatar: raw.avatar_url,
       name: raw.name,
@@ -34,7 +34,6 @@ class Github implements Provider {
       privateRepos: raw.total_private_repos,
       plan: raw.plan.name,
     }
-    return data
   }
   async getIssues() {
     const { data: raw } = await this.octokit.issues.listForRepo({
@@ -124,7 +123,7 @@ class Github implements Provider {
       body: issue.body,
     }
   }
-  private parsePullRequest(pr: githubTypes.PullRequest) {
+  private parsePullRequest(pr: githubTypes.PullRequest): types.PullRequest {
     return {
       title: pr.title,
       id: pr.id,
@@ -202,7 +201,7 @@ class Github implements Provider {
       description: team.description,
     }
   }
-  private parseRepo(r: githubTypes.Repo) {
+  private parseRepo(r: githubTypes.Repo): types.Repo {
     return {
       id: r.id,
       altId: r.node_id,
