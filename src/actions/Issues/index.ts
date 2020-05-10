@@ -9,13 +9,15 @@ import { DracText, DracCard, DracTitle } from "../../components/index"
 import { PageHistory } from "../../utilities/PageHistory"
 import { openTab } from "../../utilities/openTab"
 import { Issue } from "../Issue/index"
-
+import * as types from "../../providers/types"
+import { Label } from "../../components/Label"
 // const styles = (vars?) => `
 // :host{
 //   width:100%;
 // }
 // `
 //FIXME: add provider type
+
 export const Issues = ({
   API,
   provider,
@@ -28,7 +30,7 @@ export const Issues = ({
   args?: any
 }) => {
   //FIXME: add type
-  let [issues, $issues]: any[] = useState([])
+  let [issues, $issues]: [types.Issue[], any] = useState([])
   let [loading, $loading]: [boolean, any] = useState(true)
   useEffect(() => {
     ;(async () => {
@@ -50,7 +52,7 @@ export const Issues = ({
             ${
               !loading
                 ? issues.map(
-                    (issue: any) => html`
+                    (issue: types.Issue) => html`
             <${DracCard} width=${"calc(100% - 10px)"} onclick=${() =>
                       openTab({
                         API,
@@ -60,7 +62,12 @@ export const Issues = ({
                         pageArgs: { number: issue.number, pr },
                         id: `github-issue-${issue.number}`,
                       })}>
-              <${DracText}>${issue.title}</${DracText}>
+              <${DracText} inline=${true}>${issue.title}</${DracText}>
+              ${issue.labels.map(
+                (label: types.Label) => html`
+              <${Label} color=${label.color}>${label.name}</${Label}>
+              `
+              )}
             </${DracCard}>
             `
                   )
