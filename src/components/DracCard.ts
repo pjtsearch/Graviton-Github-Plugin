@@ -10,6 +10,7 @@ const styles = styled(
     --cardBackground:#EFEFEF;
     --disabledColor:#D8D8D8;
     --textColor:black;
+    --puffinCardBackground:var(--explorerItemSelectedBackground);
     transition:0.1s;
     font-family:var(--puffinFont,var(--font));
     padding:10px 20px;
