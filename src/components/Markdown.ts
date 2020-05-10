@@ -18,8 +18,9 @@ const highlightContainer = styled(
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  background: #1E1E1E;
-  color: #DCDCDC;
+  background:  var(--bodyBackground);
+  color: var(--commandPromptInputText)
+  font-family:monospace;
 }
 
 .hljs-keyword,
