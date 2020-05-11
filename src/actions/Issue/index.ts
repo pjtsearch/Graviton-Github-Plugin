@@ -24,7 +24,7 @@ const styles = styled(
   display: grid;
   grid-template-columns: 1fr auto;
   position:absolute;
-  bottom:0;
+  bottom:4px;
   left:0;
   right:0;
   margin:auto;
@@ -40,6 +40,8 @@ const styles = styled(
   height: calc(100% - 0px);
   padding-bottom:50px;
   box-sizing: border-box;
+  max-width: 700px;
+  margin: auto;
 }
 :host ::-webkit-scrollbar {
     width: 0px;
