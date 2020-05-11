@@ -11,12 +11,12 @@ import { openTab } from "../../utilities/openTab"
 import { Issue } from "../Issue/index"
 import * as types from "../../providers/types"
 import { Label } from "../../components/Label"
+import { Provider } from "../../providers/Provider"
 // const styles = (vars?) => `
 // :host{
 //   width:100%;
 // }
 // `
-//FIXME: add provider type
 
 export const Issues = ({
   API,
@@ -25,11 +25,10 @@ export const Issues = ({
   args: { pr },
 }: {
   API: any
-  provider: any
+  provider: Provider
   hist: PageHistory
   args?: any
 }) => {
-  //FIXME: add type
   let [issues, $issues]: [types.Issue[], any] = useState([])
   let [loading, $loading]: [boolean, any] = useState(true)
   useEffect(() => {

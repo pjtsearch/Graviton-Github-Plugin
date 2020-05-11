@@ -5,9 +5,9 @@ import { html } from "htm/preact"
 
 import { DracText } from "../../components/index"
 import { PageHistory } from "../../utilities/PageHistory"
+import { Provider } from "../../providers/Provider"
 
-//FIXME: add provider type
-export const UserInfo = ({ provider, hist, args }: { provider: any; hist?: PageHistory; args?: any }) => {
+export const UserInfo = ({ provider, hist, args }: { provider: Provider; hist?: PageHistory; args?: any }) => {
   let [data, $data]: any[] = useState(null)
   useEffect(() => {
     ;(async () => {

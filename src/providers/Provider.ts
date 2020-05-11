@@ -1,6 +1,7 @@
 import { Issue, Comment, PullRequest } from "./types"
 
 export interface Provider {
+  getUserInfo(): Promise<any>
   getIssues(): Promise<Issue[]>
   getIssue({ issueNumber }: { issueNumber: number }): Promise<Issue>
   getIssueComments({ issueNumber }: { issueNumber: number }): Promise<Comment[]>

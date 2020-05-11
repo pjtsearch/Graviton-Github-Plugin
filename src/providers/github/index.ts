@@ -2,7 +2,7 @@ import { Octokit } from "@octokit/rest"
 import * as githubTypes from "./types"
 import * as types from "../types"
 import { Provider } from "../Provider"
-//FIXME: add types for everything
+
 class Github implements Provider {
   octokit: Octokit = new Octokit()
   dir: string = ""
