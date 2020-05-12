@@ -84,7 +84,7 @@ class Github implements Provider {
       repo: this.repo.repo,
       issue_number: issueNumber,
     })
-    return this.parseIssue(raw)
+    return await this.parseIssue(raw)
   }
   async getIssueComments({ issueNumber }: { issueNumber: number }) {
     const { data: raw } = await this.octokit.issues.listComments({
@@ -93,6 +93,15 @@ class Github implements Provider {
       issue_number: issueNumber,
     })
     return raw.map(this.parseComment.bind(this))
+  }
+  async closeIssue({ issueNumber }: { issueNumber: number }) {
+    const { data: raw } = await this.octokit.issues.update({
+      owner: this.repo.owner,
+      repo: this.repo.repo,
+      issue_number: issueNumber,
+      state: "closed",
+    })
+    return raw
   }
   async createComment({ issueNumber, body }: { issueNumber: number; body: string }) {
     const { data: raw } = await this.octokit.issues.createComment({

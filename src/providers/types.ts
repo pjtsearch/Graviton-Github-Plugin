@@ -98,13 +98,13 @@ export interface Repo {
   owner: User
   private: boolean
   url: string
-  description: string
+  description: string | null
   fork: boolean
   gitUrl: string
   sshUrl: string
   cloneUrl: string
-  mirrorUrl: string
-  homepage: string
+  mirrorUrl: string | null
+  homepage: string | null
   language: string | null
   forks: number
   stars: number
@@ -112,7 +112,7 @@ export interface Repo {
   size: number
   defaultBranch: string
   openIssues: number
-  topics: string[]
+  topics?: string[]
   capabilities: {
     issues: boolean
     projects: boolean
@@ -120,16 +120,16 @@ export interface Repo {
     pages: boolean
     downloads: boolean
   }
-  archived: boolean
-  disabled: boolean
-  visibility: string
+  archived?: boolean
+  disabled?: boolean
+  visibility?: string
   pushedDate: Date | null
   createdDate: Date
   updatedDate: Date
   allowedMergeTypes: {
-    rebase: boolean
-    squash: boolean
-    commit: boolean
+    rebase?: boolean
+    squash?: boolean
+    commit?: boolean
   }
-  tempCloneToken: string
+  tempCloneToken?: string
 }
