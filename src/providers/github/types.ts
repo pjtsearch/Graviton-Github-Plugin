@@ -85,13 +85,13 @@ export interface Repo {
   owner: any
   private: boolean
   html_url: string
-  description: string
+  description: string | null
   fork: boolean
   git_url: string
   ssh_url: string
   clone_url: string
-  mirror_url: string
-  homepage: string
+  mirror_url: string | null
+  homepage: string | null
   language: string | null
   forks_count: number
   stargazers_count: number
@@ -99,20 +99,20 @@ export interface Repo {
   size: number
   default_branch: string
   open_issues_count: number
-  topics: string[]
+  topics?: string[] | undefined
   has_issues: boolean
   has_projects: boolean
   has_wiki: boolean
   has_pages: boolean
   has_downloads: boolean
-  archived: boolean
-  disabled: boolean
-  visibility: string
+  archived?: boolean | undefined
+  disabled?: boolean | undefined
+  visibility?: string | undefined
   pushed_at: string | null
   created_at: string
   updated_at: string
-  allow_rebase_merge: boolean
-  allow_squash_merge: boolean
-  allow_merge_commit: boolean
-  temp_clone_token: string
+  allow_rebase_merge?: boolean | undefined
+  allow_squash_merge?: boolean | undefined
+  allow_merge_commit?: boolean | undefined
+  temp_clone_token?: string | undefined
 }

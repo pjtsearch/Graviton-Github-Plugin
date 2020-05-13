@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.11.10](https://github.com/pjtsearch/Graviton-Github-Plugin/compare/v0.11.9...v0.11.10) (2020-05-13)
+
+
+### Features
+
+* **CommentCard:** add CommentCard, CommentCard user links to browser ([5f55570](https://github.com/pjtsearch/Graviton-Github-Plugin/commit/5f55570e8baaf45a7b8e1168850d7ffd18d17645))
+* **DracCard:** make card background more contrasting ([3270c04](https://github.com/pjtsearch/Graviton-Github-Plugin/commit/3270c04202757a268ea3658e5bb4a7e4029032f8))
+* **Issue:** add Issue max width ([5e85a9c](https://github.com/pjtsearch/Graviton-Github-Plugin/commit/5e85a9c6dcf8614c9adb30ab9879dd544807f3a0))
+* **Label:** add label icons ([2393f27](https://github.com/pjtsearch/Graviton-Github-Plugin/commit/2393f27370ba7463952683fa66f7d17bf176584c))
+* **Label, Issues:** show issue labels in Issues ([8ea0900](https://github.com/pjtsearch/Graviton-Github-Plugin/commit/8ea0900dd30e8ca830c95d9e9e6f81e9fef6c598))
+* **Markdown:** add syntax highlighting ([b3ebdfe](https://github.com/pjtsearch/Graviton-Github-Plugin/commit/b3ebdfedc398178f6cafa9a9668860a4264cb579))
+* **Markdown, DracCard:** make no click drac cards, md change bg for themeMake drac cards not have active effect if no onClick, make markdownsyntax highlighting text color and background change based on theme ([1f26fb9](https://github.com/pjtsearch/Graviton-Github-Plugin/commit/1f26fb99e3556a65ec575c96ad4b303cc295ea20))
+* **Providers, Issue:** add issue close, fix Repo types ([2dc286d](https://github.com/pjtsearch/Graviton-Github-Plugin/commit/2dc286d527bf71b904b892573a17888c10db6d2c))
+
+
+### Bug Fixes
+
+* **Markdown:** fix table text color ([6cdba99](https://github.com/pjtsearch/Graviton-Github-Plugin/commit/6cdba99a44144e222ed9578cf52917618b2cb47b))
+
 ### [0.11.9](https://github.com/pjtsearch/Graviton-Github-Plugin/compare/v0.11.8...v0.11.9) (2020-05-10)
 
 ### 0.11.8 (2020-05-09)

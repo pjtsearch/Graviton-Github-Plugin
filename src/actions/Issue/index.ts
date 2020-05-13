@@ -7,6 +7,15 @@ import { PageHistory } from "../../utilities/PageHistory"
 import { Markdown } from "../../components/Markdown"
 
 import ArrowLeftIcon from "mdi-preact/ArrowLeftIcon"
+import { Label } from "../../components/Label"
+import { CommentCard } from "./CommentCard"
+import { Provider } from "../../providers/Provider"
+import * as types from "../../providers/types"
+
+import AlertCircleOutlineIcon from "mdi-preact/AlertCircleOutlineIcon"
+import AlertCircleCheckOutlineIcon from "mdi-preact/AlertCircleCheckOutlineIcon"
+
+const shell = require("electron").shell
 
 const styles = styled(
   "div",
@@ -22,9 +31,9 @@ const styles = styled(
 #input-box{
   width:calc(100% - 7px);
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto auto;
   position:absolute;
-  bottom:0;
+  bottom:4px;
   left:0;
   right:0;
   margin:auto;
@@ -40,6 +49,8 @@ const styles = styled(
   height: calc(100% - 0px);
   padding-bottom:50px;
   box-sizing: border-box;
+  max-width: 700px;
+  margin: auto;
 }
 :host ::-webkit-scrollbar {
     width: 0px;
@@ -67,32 +78,32 @@ export const Issue = ({
   hist,
   args: { number: issueNumber, pr },
 }: {
-  provider: any
+  provider: Provider
   hist?: PageHistory
   args?: any
   pr: boolean
 }) => {
   let [comments, $comments]: any[] = useState([])
   let [issue, $issue]: any[] = useState({})
+  let [user, $user]: any[] = useState({})
   let [comment, $comment] = useState("")
   let [loading, $loading]: [boolean, any] = useState(true)
 
   const update = async () => {
+    $loading(true)
+    $user(await provider.getUserInfo())
     if (!pr) {
-      $loading(true)
       await Promise.all([
         $issue(await provider.getIssue({ issueNumber })),
         $comments(await provider.getIssueComments({ issueNumber })),
       ])
-      $loading(false)
     } else if (pr) {
-      $loading(true)
       await Promise.all([
         $issue(await provider.getPullRequest({ prNumber: issueNumber })),
         $comments(await provider.getPullRequestComments({ prNumber: issueNumber })),
       ])
-      $loading(false)
     }
+    $loading(false)
   }
 
   useEffect(() => {
@@ -103,6 +114,11 @@ export const Issue = ({
     console.log(await provider.createComment({ issueNumber, body }))
     await update()
   }
+
+  const close = async () => {
+    console.log(await provider.closeIssue({ issueNumber }))
+    await update()
+  }
   return html`
         <${styles} id="issue">
             <div id="issue-wrapper">
@@ -110,33 +126,24 @@ export const Issue = ({
                 !loading
                   ? html`
                 <${DracTitle} style=${{ display: "inline" }} level=${2}>${issue.title}</${DracTitle}>
-                <${DracCard} width=${"calc(100% - 10px)"}>
-                  <img height="20" src=${issue.creator.avatar}/>
-                  <${DracText} inline=${true}>${issue.creator.login}</${DracText}>
-                  <br/>
-                  <${Markdown} text=${issue.body}></${Markdown}>
-                </${DracCard}>
+                <${Label} color=${issue.state === "open" ? "4caf50" : "f44336"} icon=${
+                      issue.state === "open" ? AlertCircleOutlineIcon : AlertCircleCheckOutlineIcon
+                    }>${issue.state === "open" ? "Opened" : "Closed"}</${Label}>
+                <${CommentCard} comment=${issue}/>
                 `
                   : html` <${DracText}>Loading...</${DracText}> `
               }
-              ${
-                !loading
-                  ? comments.map(
-                      (comment: any) => html`
-                      <${DracCard} width=${"calc(100% - 10px)"}>
-                        <img height="20" src=${comment.creator.avatar}/>
-                        <${DracText} inline=${true}>${comment.creator.login}</${DracText}>
-                        <br/>
-                        <${Markdown} text=${comment.body}></${Markdown}>
-                      </${DracCard}>
-                    `
-                    )
-                  : null
-              }
+              ${!loading ? comments.map((comment: any) => html` <${CommentCard} comment=${comment} /> `) : null}
             </div>
             <div id="input-box">
               <${DracInput} onInput=${(e: any) => $comment(e.target.value)} height=${"100%"}></${DracInput}>
-              <${DracButton} onclick=${() => createComment(comment)}>Send</${DracButton}>
+              <${DracButton} onClick=${() => createComment(comment)}>Send</${DracButton}>
+              ${
+                !loading &&
+                issue.state === "open" &&
+                (user.login === issue.owner || user.login === provider.repo.owner) &&
+                html`<${DracButton} onClick=${() => close()}>Close</${DracButton}>`
+              }
             </div>
         </${styles}>
     `
