@@ -19,13 +19,19 @@ const styles = styled(
   font-weight:normal;
   display: inline-block;
   border-radius:20px;
+  display: inline-grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto auto;
+  align-items: center;
+  grid-gap: 2px;
 }
 `
 )
 
-export const Label = ({ color, children }: { color: string; children: any[] }) => {
+export const Label = ({ color, icon, children }: { color: string; icon?: any; children: any[] }) => {
   return html`
     <${styles} style=${`background-color:${color ? "#" + color : "transparent"};`}>
+        <${icon} style=${`color:${fontColorContrast(color)};`}/>
         <span style=${`color:${fontColorContrast(color)};`}>${children}</span>
     </${styles}>
     `

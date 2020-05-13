@@ -12,6 +12,9 @@ import { CommentCard } from "./CommentCard"
 import { Provider } from "../../providers/Provider"
 import * as types from "../../providers/types"
 
+import AlertCircleOutlineIcon from "mdi-preact/AlertCircleOutlineIcon"
+import AlertCircleCheckOutlineIcon from "mdi-preact/AlertCircleCheckOutlineIcon"
+
 const shell = require("electron").shell
 
 const styles = styled(
@@ -123,9 +126,9 @@ export const Issue = ({
                 !loading
                   ? html`
                 <${DracTitle} style=${{ display: "inline" }} level=${2}>${issue.title}</${DracTitle}>
-                <${Label} color=${issue.state === "open" ? "4caf50" : "f44336"}>${
-                      issue.state === "open" ? "Opened" : "Closed"
-                    }</${Label}>
+                <${Label} color=${issue.state === "open" ? "4caf50" : "f44336"} icon=${
+                      issue.state === "open" ? AlertCircleOutlineIcon : AlertCircleCheckOutlineIcon
+                    }>${issue.state === "open" ? "Opened" : "Closed"}</${Label}>
                 <${CommentCard} comment=${issue}/>
                 `
                   : html` <${DracText}>Loading...</${DracText}> `
