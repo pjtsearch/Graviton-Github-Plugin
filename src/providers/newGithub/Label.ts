@@ -2,12 +2,13 @@ import * as types from "../types"
 import * as githubTypes from "./types"
 import { UserInfo } from "../../actions"
 import { Octokit } from "@octokit/rest"
+import { ProviderAction } from "../Provider"
 
 interface Deps {
   octokit: Octokit
 }
 
-export class Label implements types.Label {
+export class Label implements types.Label, ProviderAction {
   deps: Deps
   name!: string
   id!: number

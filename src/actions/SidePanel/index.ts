@@ -14,6 +14,7 @@ import AlertCircleOutlineIcon from "mdi-preact/AlertCircleOutlineIcon"
 import SourcePullIcon from "mdi-preact/SourcePullIcon"
 import SettingsOutlineIcon from "mdi-preact/SettingsOutlineIcon"
 import styled from "preact-css-styled"
+import { ProviderController } from "../../providers/ProviderController"
 
 const pageWrapper = styled(
   "div",
@@ -66,7 +67,8 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
     API.RunningConfig.on("addFolderToRunningWorkspace", async () => {
       $loading(true)
       try {
-        $provider(await getProviderRepo({ API }))
+        $provider(await new ProviderController().init(API))
+        console.log(await new ProviderController().init(API))
         // console.log(await getProviderRepo({ API }))
       } catch (err) {
         hist.pushState({ page: "Config", args: { $provider } })

@@ -12,6 +12,7 @@ import { Issue } from "../Issue/index"
 import * as types from "../../providers/types"
 import { Label } from "../../components/Label"
 import { Provider } from "../../providers/Provider"
+import { ProviderController } from "../../providers/ProviderController"
 // const styles = (vars?) => `
 // :host{
 //   width:100%;
@@ -26,7 +27,7 @@ export const Issues = ({
 }: {
   API: any
   // TODO: fix types
-  provider: { deps: any; repo: any; provider: any }
+  provider: ProviderController
   hist: PageHistory
   args?: any
 }) => {

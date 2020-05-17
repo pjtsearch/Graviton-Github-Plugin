@@ -4,12 +4,13 @@ import { UserInfo } from "../../actions"
 import { Octokit } from "@octokit/rest"
 import { User } from "./User"
 import { Label } from "./Label"
+import { ProviderAction } from "../Provider"
 
 interface Deps {
   octokit: Octokit
 }
 
-export class Issue implements types.Issue {
+export class Issue implements types.Issue, ProviderAction {
   deps: Deps
   title!: string
   id!: number

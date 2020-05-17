@@ -1,4 +1,6 @@
 import { Issue, Comment, PullRequest } from "./types"
+import * as types from "./types"
+import { Octokit } from "@octokit/rest"
 
 export interface Provider {
   repo: { owner: string; repo: string }
@@ -11,4 +13,13 @@ export interface Provider {
   createComment({ issueNumber, body }: { issueNumber: number; body: string }): any
   getPullRequest({ prNumber }: { prNumber: number }): Promise<PullRequest>
   getPullRequests(): Promise<PullRequest[]>
+}
+
+interface Deps {
+  octokit: Octokit
+}
+
+export interface ProviderAction {
+  deps: Deps
+  fromData(value: any): this
 }

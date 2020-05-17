@@ -3,12 +3,13 @@ import * as githubTypes from "./types"
 import { Label } from "../../components/Label"
 import { UserInfo } from "../../actions"
 import { Octokit } from "@octokit/rest"
+import { ProviderAction } from "../Provider"
 
 interface Deps {
   octokit: Octokit
 }
 
-export class User implements types.User {
+export class User implements types.User, ProviderAction {
   deps: Deps
   login!: string
   id!: number
