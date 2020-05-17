@@ -20,12 +20,13 @@ import { Provider } from "../../providers/Provider"
 
 export const Issues = ({
   API,
-  provider,
+  provider: { deps, repo, provider },
   hist,
   args: { pr },
 }: {
   API: any
-  provider: Provider
+  // TODO: fix types
+  provider: { deps: any; repo: any; provider: any }
   hist: PageHistory
   args?: any
 }) => {
@@ -35,7 +36,8 @@ export const Issues = ({
     ;(async () => {
       if (!pr) {
         $loading(true)
-        $issues(await provider.getIssues())
+        $issues(await repo.issues)
+        // console.log(await repo.issues)
         $loading(false)
       } else if (pr) {
         $loading(true)
@@ -57,7 +59,7 @@ export const Issues = ({
                         API,
                         comp: Issue,
                         title: `#${issue.number}`,
-                        provider,
+                        provider: { deps, repo, provider },
                         pageArgs: { number: issue.number, pr },
                         id: `github-issue-${issue.number}`,
                       })}>

@@ -2,6 +2,9 @@ import Github from "../providers/github/index"
 import parseGHUrl from "parse-github-url"
 import * as git from "isomorphic-git"
 import * as fs from "fs"
+import { Repo } from "../providers/newGithub/Repo"
+import { Octokit } from "@octokit/rest"
+import * as github from "../providers/newGithub/index"
 
 export default async ({ API }: { API: any }) => {
   if (!API.StaticConfig.data.github) {
@@ -27,4 +30,16 @@ export default async ({ API }: { API: any }) => {
   if (providerName === "github") {
     return new Github({ auth, dir, repo })
   }
+}
+
+export const getProviderRepo = async ({ API }: { API: any }) => {
+  const dir = API.RunningConfig.data.workspaceConfig.folders[0].path
+  const raw = <{ owner: string; name: string }>parseGHUrl((await git.listRemotes({ fs, dir }))[0].url)
+  const deps = { octokit: new Octokit({ auth: API.StaticConfig.data.github.auth }) }
+  const providerName = API.StaticConfig.data.github.provider
+  let provider
+  if (providerName === "github") provider = github
+  else provider = github
+  const repo = await new provider.Repo(deps).fromFetch(raw)
+  return { deps, repo, provider }
 }

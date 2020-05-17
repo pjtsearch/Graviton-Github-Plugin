@@ -1,5 +1,5 @@
 import { createPreactComponent } from "../../utilities/createComponent"
-import getProvider from "../../utilities/getProvider"
+import getProvider, { getProviderRepo } from "../../utilities/getProvider"
 import { Component } from "preact"
 import { html } from "htm/preact"
 import { useState, useEffect } from "preact/hooks"
@@ -27,10 +27,10 @@ const pageWrapper = styled(
 
 const Comp = ({ API }: { API: { RunningConfig: any } }) => {
   const pages: { [key: string]: (...args: any) => preact.VNode<{}> } = {
-    UserInfo,
+    // UserInfo,
     Issues,
-    Issue,
-    Config,
+    // Issue,
+    // Config,
   }
   const [page, $page] = useState("")
   const [pageArgs, $pageArgs] = useState({})
@@ -43,22 +43,22 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
     })
   )
   const [menuItems] = useState([
-    { name: "User Info", onClick: () => hist.pushState({ page: "UserInfo", args: {} }), icon: AccountOutlineIcon },
+    // { name: "User Info", onClick: () => hist.pushState({ page: "UserInfo", args: {} }), icon: AccountOutlineIcon },
     {
       name: "Issues",
       onClick: () => hist.pushState({ page: "Issues", args: { pr: false } }),
       icon: AlertCircleOutlineIcon,
     },
-    {
-      name: "Pull Requests",
-      onClick: () => hist.pushState({ page: "Issues", args: { pr: true } }),
-      icon: SourcePullIcon,
-    },
-    {
-      name: "Config",
-      onClick: () => hist.pushState({ page: "Config", args: { $provider } }),
-      icon: SettingsOutlineIcon,
-    },
+    // {
+    //   name: "Pull Requests",
+    //   onClick: () => hist.pushState({ page: "Issues", args: { pr: true } }),
+    //   icon: SourcePullIcon,
+    // },
+    // {
+    //   name: "Config",
+    //   onClick: () => hist.pushState({ page: "Config", args: { $provider } }),
+    //   icon: SettingsOutlineIcon,
+    // },
   ])
 
   useEffect(() => {
@@ -66,8 +66,8 @@ const Comp = ({ API }: { API: { RunningConfig: any } }) => {
     API.RunningConfig.on("addFolderToRunningWorkspace", async () => {
       $loading(true)
       try {
-        const p = await getProvider({ API })
-        $provider(p)
+        $provider(await getProviderRepo({ API }))
+        // console.log(await getProviderRepo({ API }))
       } catch (err) {
         hist.pushState({ page: "Config", args: { $provider } })
       }

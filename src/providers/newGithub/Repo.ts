@@ -59,13 +59,22 @@ export class Repo implements types.Repo {
     Object.assign(this, parsed)
     return this
   }
+  async fromFetch({ owner, name }: { owner: string; name: string }) {
+    const { data: raw } = await this.deps.octokit.repos.get({
+      owner,
+      repo: name,
+    })
+    const parsed = this.parse(raw)
+    Object.assign(this, parsed)
+    return this
+  }
   get issues() {
     return (async () => {
       const { data: raw } = await this.deps.octokit.issues.listForRepo({
         owner: this.owner.login,
         repo: this.name,
       })
-      const data = raw.map(new Issue(this.deps).fromData)
+      const data = raw.map((v) => new Issue(this.deps).fromData(v))
       return data
     })()
   }

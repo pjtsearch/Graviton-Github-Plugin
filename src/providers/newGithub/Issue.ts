@@ -34,9 +34,9 @@ export class Issue implements types.Issue {
     Object.assign(this, parsed)
     return this
   }
-  async fromFetch({ repo, issueNumber }: { repo: { owner: string; name: string }; issueNumber: number }) {
+  async fromFetch({ repo, issueNumber }: { repo: types.Repo; issueNumber: number }) {
     const { data: raw } = await this.deps.octokit.issues.get({
-      owner: repo.owner,
+      owner: repo.owner.login,
       repo: repo.name,
       issue_number: issueNumber,
     })
@@ -51,10 +51,10 @@ export class Issue implements types.Issue {
       altId: issue.node_id,
       number: issue.number,
       creator: new User(this.deps).fromData(issue.user),
-      labels: issue.labels.map(new Label(this.deps).fromData),
+      labels: issue.labels.map((v: githubTypes.Label) => new Label(this.deps).fromData(v)),
       state: issue.state,
       locked: issue.locked,
-      assignees: issue.assignees.map(new User(this.deps).fromData),
+      assignees: issue.assignees.map((v: githubTypes.User) => new User(this.deps).fromData(v)),
       //  FIXME: parse milestone if neccessary
       milestone: issue.milestone,
       commentsAmount: issue.comments,

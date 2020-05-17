@@ -74,11 +74,12 @@ const styles = styled(
 )
 
 export const Issue = ({
-  provider,
+  provider: { deps, repo, provider },
   hist,
   args: { number: issueNumber, pr },
 }: {
-  provider: Provider
+  // TODO: fix types
+  provider: { deps: any; repo: any; provider: any }
   hist?: PageHistory
   args?: any
   pr: boolean
@@ -91,11 +92,13 @@ export const Issue = ({
 
   const update = async () => {
     $loading(true)
-    $user(await provider.getUserInfo())
+    //TODO: re-add
+    // $user(await provider.getUserInfo())
     if (!pr) {
+      console.log(deps, repo, provider)
       await Promise.all([
-        $issue(await provider.getIssue({ issueNumber })),
-        $comments(await provider.getIssueComments({ issueNumber })),
+        $issue(await new provider.Issue(deps).fromFetch({ repo, issueNumber })),
+        // $comments(await provider.getIssueComments({ issueNumber })),
       ])
     } else if (pr) {
       await Promise.all([
