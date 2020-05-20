@@ -52,18 +52,20 @@ export class Repo implements types.Repo, ProviderAction {
     commit?: boolean
   }
   tempCloneToken?: string
-  constructor(deps: Deps) {
+  constructor({ owner, name, value }: { owner?: string; name?: string; value: githubTypes.Repo }, deps: Deps) {
     this.deps = deps
-  }
-  fromData(value: githubTypes.Repo) {
-    const parsed = this.parse(value)
-    Object.assign(this, parsed)
+    if (owner) this.owner = new User({ name: owner }, this.deps)
+    if (name) this.name = name
+    if (value) {
+      const parsed = this.parse(value)
+      Object.assign(this, parsed)
+    }
     return this
   }
-  async fromFetch({ owner, name }: { owner: string; name: string }) {
+  async fetch() {
     const { data: raw } = await this.deps.octokit.repos.get({
-      owner,
-      repo: name,
+      owner: this.owner.login,
+      repo: this.name,
     })
     const parsed = this.parse(raw)
     Object.assign(this, parsed)
@@ -75,7 +77,7 @@ export class Repo implements types.Repo, ProviderAction {
         owner: this.owner.login,
         repo: this.name,
       })
-      const data = raw.map((v) => new Issue(this.deps).fromData(v))
+      const data = raw.map((value) => new Issue({ repo: this, value }, this.deps))
       return data
     })()
   }
@@ -85,7 +87,7 @@ export class Repo implements types.Repo, ProviderAction {
       altId: r.node_id,
       name: r.name,
       repoName: r.full_name,
-      owner: new User(this.deps).fromData(r.owner),
+      owner: new User({ value: r.owner }, this.deps),
       private: r.private,
       url: r.html_url,
       description: r.description,

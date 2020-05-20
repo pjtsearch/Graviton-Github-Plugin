@@ -16,13 +16,13 @@ export class User implements types.User, ProviderAction {
   altId!: string
   avatar!: string
   url!: string
-  constructor(deps: Deps) {
+  constructor({ name, value }: { name?: string; value?: githubTypes.User }, deps: Deps) {
     this.deps = deps
-  }
-
-  fromData(value: githubTypes.User) {
-    const parsed = this.parse(value)
-    Object.assign(this, parsed)
+    if (name) this.login = name
+    if (value) {
+      const parsed = this.parse(value)
+      Object.assign(this, parsed)
+    }
     return this
   }
   private parse(user: githubTypes.User): types.User {

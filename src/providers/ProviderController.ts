@@ -19,6 +19,7 @@ export class ProviderController {
     Issue: any
     Label: any
     User: any
+    Comment: any
   }
   async init(API: any) {
     const dir = API.RunningConfig.data.workspaceConfig.folders[0].path
@@ -26,7 +27,7 @@ export class ProviderController {
     this.deps = { octokit: new Octokit({ auth: API.StaticConfig.data.github.auth }) }
     const providerName = API.StaticConfig.data.github.provider
     if (providerName === "github") this.provider = github
-    this.repo = await new this.provider.Repo(this.deps).fromFetch(raw)
+    this.repo = await new this.provider.Repo(raw, this.deps).fetch()
     return this
   }
 }

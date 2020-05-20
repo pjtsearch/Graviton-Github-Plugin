@@ -97,8 +97,8 @@ export const Issue = ({
     if (!pr) {
       console.log(deps, repo, provider)
       await Promise.all([
-        $issue(await new provider.Issue(deps).fromFetch({ repo, issueNumber })),
-        // $comments(await provider.getIssueComments({ issueNumber })),
+        $issue(await new provider.Issue({ repo, issueNumber }, deps).fetch()),
+        $comments(await new provider.Issue({ repo, issueNumber }, deps).comments),
       ])
     } else if (pr) {
       await Promise.all([

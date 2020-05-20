@@ -21,5 +21,4 @@ interface Deps {
 
 export interface ProviderAction {
   deps: Deps
-  fromData(value: any): this
 }
